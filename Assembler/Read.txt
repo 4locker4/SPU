@@ -1,0 +1,9 @@
+push 10
+push 999
+push 1000
+inp
+pop AX
+push [AX + 144]
+outp
+push AX + 202
+hlt
