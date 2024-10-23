@@ -1,0 +1,708 @@
+born at src/main.cpp: 203, name: "HLT"
+ALLIGEN: <0>,	GOOSE_SIZE: <0>
+size = <0>	capasity = <8>
+[0] = fffffd66 (POISON)
+[1] = fffffd66 (POISON)
+[2] = fffffd66 (POISON)
+[3] = fffffd66 (POISON)
+[4] = fffffd66 (POISON)
+[5] = fffffd66 (POISON)
+[6] = fffffd66 (POISON)
+[7] = fffffd66 (POISON)
+Dump ends.
+born at src/main.cpp: 203, name: "HLT"
+ALLIGEN: <0>,	GOOSE_SIZE: <0>
+size = <0>	capasity = <8>
+[0] = fffffd66 (POISON)
+[1] = fffffd66 (POISON)
+[2] = fffffd66 (POISON)
+[3] = fffffd66 (POISON)
+[4] = fffffd66 (POISON)
+[5] = fffffd66 (POISON)
+[6] = fffffd66 (POISON)
+[7] = fffffd66 (POISON)
+Dump ends.
+born at src/main.cpp: 203, name: "HLT"
+ALLIGEN: <0>,	GOOSE_SIZE: <0>
+size = <0>	capasity = <8>
+[0] = fffffd66 (POISON)
+[1] = fffffd66 (POISON)
+[2] = fffffd66 (POISON)
+[3] = fffffd66 (POISON)
+[4] = fffffd66 (POISON)
+[5] = fffffd66 (POISON)
+[6] = fffffd66 (POISON)
+[7] = fffffd66 (POISON)
+Dump ends.
+born at src/main.cpp: 204, name: "HLT"
+ALLIGEN: <0>,	GOOSE_SIZE: <0>
+size = <0>	capasity = <8>
+[0] = fffffd66 (POISON)
+[1] = fffffd66 (POISON)
+[2] = fffffd66 (POISON)
+[3] = fffffd66 (POISON)
+[4] = fffffd66 (POISON)
+[5] = fffffd66 (POISON)
+[6] = fffffd66 (POISON)
+[7] = fffffd66 (POISON)
+Dump ends.
+born at src/main.cpp: 204, name: "HLT"
+ALLIGEN: <0>,	GOOSE_SIZE: <0>
+size = <0>	capasity = <8>
+[0] = fffffd66 (POISON)
+[1] = fffffd66 (POISON)
+[2] = fffffd66 (POISON)
+[3] = fffffd66 (POISON)
+[4] = fffffd66 (POISON)
+[5] = fffffd66 (POISON)
+[6] = fffffd66 (POISON)
+[7] = fffffd66 (POISON)
+Dump ends.
+born at src/main.cpp: 204, name: "HLT"
+ALLIGEN: <0>,	GOOSE_SIZE: <0>
+size = <0>	capasity = <8>
+[0] = fffffd66 (POISON)
+[1] = fffffd66 (POISON)
+[2] = fffffd66 (POISON)
+[3] = fffffd66 (POISON)
+[4] = fffffd66 (POISON)
+[5] = fffffd66 (POISON)
+[6] = fffffd66 (POISON)
+[7] = fffffd66 (POISON)
+Dump ends.
+born at src/main.cpp: 58, name: "PUSH"
+ALLIGEN: <0>,	GOOSE_SIZE: <0>
+size = <1>	capasity = <8>
+[0] = -666
+[1] = fffffd66 (POISON)
+[2] = fffffd66 (POISON)
+[3] = fffffd66 (POISON)
+[4] = fffffd66 (POISON)
+[5] = fffffd66 (POISON)
+[6] = fffffd66 (POISON)
+[7] = fffffd66 (POISON)
+Dump ends.
+born at src/main.cpp: 58, name: "PUSH"
+ALLIGEN: <0>,	GOOSE_SIZE: <0>
+size = <1>	capasity = <8>
+[0] = -666
+[1] = fffffd66 (POISON)
+[2] = fffffd66 (POISON)
+[3] = fffffd66 (POISON)
+[4] = fffffd66 (POISON)
+[5] = fffffd66 (POISON)
+[6] = fffffd66 (POISON)
+[7] = fffffd66 (POISON)
+Dump ends.
+born at src/main.cpp: 58, name: "PUSH"
+ALLIGEN: <0>,	GOOSE_SIZE: <0>
+size = <1>	capasity = <8>
+[0] = -666
+[1] = fffffd66 (POISON)
+[2] = fffffd66 (POISON)
+[3] = fffffd66 (POISON)
+[4] = fffffd66 (POISON)
+[5] = fffffd66 (POISON)
+[6] = fffffd66 (POISON)
+[7] = fffffd66 (POISON)
+Dump ends.
+born at src/main.cpp: 58, name: "PUSH"
+ALLIGEN: <0>,	GOOSE_SIZE: <0>
+size = <1>	capasity = <8>
+[0] = -666
+[1] = fffffd66 (POISON)
+[2] = fffffd66 (POISON)
+[3] = fffffd66 (POISON)
+[4] = fffffd66 (POISON)
+[5] = fffffd66 (POISON)
+[6] = fffffd66 (POISON)
+[7] = fffffd66 (POISON)
+Dump ends.
+born at src/main.cpp: 58, name: "PUSH"
+ALLIGEN: <0>,	GOOSE_SIZE: <0>
+size = <1>	capasity = <8>
+[0] = -666
+[1] = fffffd66 (POISON)
+[2] = fffffd66 (POISON)
+[3] = fffffd66 (POISON)
+[4] = fffffd66 (POISON)
+[5] = fffffd66 (POISON)
+[6] = fffffd66 (POISON)
+[7] = fffffd66 (POISON)
+Dump ends.
+born at src/main.cpp: 58, name: "PUSH"
+ALLIGEN: <0>,	GOOSE_SIZE: <0>
+size = <1>	capasity = <8>
+[0] = -666
+[1] = fffffd66 (POISON)
+[2] = fffffd66 (POISON)
+[3] = fffffd66 (POISON)
+[4] = fffffd66 (POISON)
+[5] = fffffd66 (POISON)
+[6] = fffffd66 (POISON)
+[7] = fffffd66 (POISON)
+Dump ends.
+born at src/main.cpp: 58, name: "PUSH"
+ALLIGEN: <0>,	GOOSE_SIZE: <0>
+size = <1>	capasity = <8>
+[0] = -666
+[1] = fffffd66 (POISON)
+[2] = fffffd66 (POISON)
+[3] = fffffd66 (POISON)
+[4] = fffffd66 (POISON)
+[5] = fffffd66 (POISON)
+[6] = fffffd66 (POISON)
+[7] = fffffd66 (POISON)
+Dump ends.
+born at src/main.cpp: 58, name: "PUSH"
+ALLIGEN: <0>,	GOOSE_SIZE: <0>
+size = <1>	capasity = <8>
+[0] = -666
+[1] = fffffd66 (POISON)
+[2] = fffffd66 (POISON)
+[3] = fffffd66 (POISON)
+[4] = fffffd66 (POISON)
+[5] = fffffd66 (POISON)
+[6] = fffffd66 (POISON)
+[7] = fffffd66 (POISON)
+Dump ends.
+born at src/main.cpp: 58, name: "PUSH"
+ALLIGEN: <0>,	GOOSE_SIZE: <0>
+size = <1>	capasity = <8>
+[0] = -666
+[1] = fffffd66 (POISON)
+[2] = fffffd66 (POISON)
+[3] = fffffd66 (POISON)
+[4] = fffffd66 (POISON)
+[5] = fffffd66 (POISON)
+[6] = fffffd66 (POISON)
+[7] = fffffd66 (POISON)
+Dump ends.
+born at src/main.cpp: 58, name: "PUSH"
+ALLIGEN: <0>,	GOOSE_SIZE: <0>
+size = <1>	capasity = <8>
+[0] = -666
+[1] = fffffd66 (POISON)
+[2] = fffffd66 (POISON)
+[3] = fffffd66 (POISON)
+[4] = fffffd66 (POISON)
+[5] = fffffd66 (POISON)
+[6] = fffffd66 (POISON)
+[7] = fffffd66 (POISON)
+Dump ends.
+born at src/main.cpp: 58, name: "PUSH"
+ALLIGEN: <0>,	GOOSE_SIZE: <0>
+size = <1>	capasity = <8>
+[0] = -666
+[1] = fffffd66 (POISON)
+[2] = fffffd66 (POISON)
+[3] = fffffd66 (POISON)
+[4] = fffffd66 (POISON)
+[5] = fffffd66 (POISON)
+[6] = fffffd66 (POISON)
+[7] = fffffd66 (POISON)
+Dump ends.
+born at src/main.cpp: 58, name: "PUSH"
+ALLIGEN: <0>,	GOOSE_SIZE: <0>
+size = <1>	capasity = <8>
+[0] = -666
+[1] = fffffd66 (POISON)
+[2] = fffffd66 (POISON)
+[3] = fffffd66 (POISON)
+[4] = fffffd66 (POISON)
+[5] = fffffd66 (POISON)
+[6] = fffffd66 (POISON)
+[7] = fffffd66 (POISON)
+Dump ends.
+born at src/main.cpp: 58, name: "PUSH"
+ALLIGEN: <0>,	GOOSE_SIZE: <0>
+size = <1>	capasity = <8>
+[0] = -666
+[1] = fffffd66 (POISON)
+[2] = fffffd66 (POISON)
+[3] = fffffd66 (POISON)
+[4] = fffffd66 (POISON)
+[5] = fffffd66 (POISON)
+[6] = fffffd66 (POISON)
+[7] = fffffd66 (POISON)
+Dump ends.
+born at src/main.cpp: 58, name: "PUSH"
+ALLIGEN: <0>,	GOOSE_SIZE: <0>
+size = <1>	capasity = <8>
+[0] = -666
+[1] = fffffd66 (POISON)
+[2] = fffffd66 (POISON)
+[3] = fffffd66 (POISON)
+[4] = fffffd66 (POISON)
+[5] = fffffd66 (POISON)
+[6] = fffffd66 (POISON)
+[7] = fffffd66 (POISON)
+Dump ends.
+born at src/main.cpp: 58, name: "PUSH"
+ALLIGEN: <0>,	GOOSE_SIZE: <0>
+size = <1>	capasity = <8>
+[0] = -666
+[1] = fffffd66 (POISON)
+[2] = fffffd66 (POISON)
+[3] = fffffd66 (POISON)
+[4] = fffffd66 (POISON)
+[5] = fffffd66 (POISON)
+[6] = fffffd66 (POISON)
+[7] = fffffd66 (POISON)
+Dump ends.
+born at src/main.cpp: 58, name: "PUSH"
+ALLIGEN: <0>,	GOOSE_SIZE: <0>
+size = <1>	capasity = <8>
+[0] = -666
+[1] = fffffd66 (POISON)
+[2] = fffffd66 (POISON)
+[3] = fffffd66 (POISON)
+[4] = fffffd66 (POISON)
+[5] = fffffd66 (POISON)
+[6] = fffffd66 (POISON)
+[7] = fffffd66 (POISON)
+Dump ends.
+born at src/main.cpp: 69, name: "POP"
+ALLIGEN: <0>,	GOOSE_SIZE: <0>
+size = <0>	capasity = <8>
+[0] = -666
+[1] = fffffd66 (POISON)
+[2] = fffffd66 (POISON)
+[3] = fffffd66 (POISON)
+[4] = fffffd66 (POISON)
+[5] = fffffd66 (POISON)
+[6] = fffffd66 (POISON)
+[7] = fffffd66 (POISON)
+Dump ends.
+born at src/main.cpp: 58, name: "PUSH"
+ALLIGEN: <0>,	GOOSE_SIZE: <0>
+size = <1>	capasity = <8>
+[0] = -666
+[1] = fffffd66 (POISON)
+[2] = fffffd66 (POISON)
+[3] = fffffd66 (POISON)
+[4] = fffffd66 (POISON)
+[5] = fffffd66 (POISON)
+[6] = fffffd66 (POISON)
+[7] = fffffd66 (POISON)
+Dump ends.
+born at src/main.cpp: 58, name: "PUSH"
+ALLIGEN: <0>,	GOOSE_SIZE: <0>
+size = <1>	capasity = <8>
+[0] = -666
+[1] = fffffd66 (POISON)
+[2] = fffffd66 (POISON)
+[3] = fffffd66 (POISON)
+[4] = fffffd66 (POISON)
+[5] = fffffd66 (POISON)
+[6] = fffffd66 (POISON)
+[7] = fffffd66 (POISON)
+Dump ends.
+born at src/main.cpp: 100, name: "SUB"
+ALLIGEN: <0>,	GOOSE_SIZE: <0>
+size = <1>	capasity = <8>
+[0] = -666
+[1] = fffffd66 (POISON)
+[2] = fffffd66 (POISON)
+[3] = fffffd66 (POISON)
+[4] = fffffd66 (POISON)
+[5] = fffffd66 (POISON)
+[6] = fffffd66 (POISON)
+[7] = fffffd66 (POISON)
+Dump ends.
+born at src/main.cpp: 210, name: "HLT"
+ALLIGEN: <0>,	GOOSE_SIZE: <0>
+size = <1>	capasity = <8>
+[0] = -666
+[1] = fffffd66 (POISON)
+[2] = fffffd66 (POISON)
+[3] = fffffd66 (POISON)
+[4] = fffffd66 (POISON)
+[5] = fffffd66 (POISON)
+[6] = fffffd66 (POISON)
+[7] = fffffd66 (POISON)
+Dump ends.
+born at src/main.cpp: 58, name: "PUSH"
+ALLIGEN: <0>,	GOOSE_SIZE: <0>
+size = <1>	capasity = <8>
+[0] = -666
+[1] = fffffd66 (POISON)
+[2] = fffffd66 (POISON)
+[3] = fffffd66 (POISON)
+[4] = fffffd66 (POISON)
+[5] = fffffd66 (POISON)
+[6] = fffffd66 (POISON)
+[7] = fffffd66 (POISON)
+Dump ends.
+born at src/main.cpp: 58, name: "PUSH"
+ALLIGEN: <0>,	GOOSE_SIZE: <0>
+size = <1>	capasity = <8>
+[0] = -666
+[1] = fffffd66 (POISON)
+[2] = fffffd66 (POISON)
+[3] = fffffd66 (POISON)
+[4] = fffffd66 (POISON)
+[5] = fffffd66 (POISON)
+[6] = fffffd66 (POISON)
+[7] = fffffd66 (POISON)
+Dump ends.
+born at src/main.cpp: 69, name: "POP"
+ALLIGEN: <0>,	GOOSE_SIZE: <0>
+size = <0>	capasity = <8>
+[0] = -666
+[1] = fffffd66 (POISON)
+[2] = fffffd66 (POISON)
+[3] = fffffd66 (POISON)
+[4] = fffffd66 (POISON)
+[5] = fffffd66 (POISON)
+[6] = fffffd66 (POISON)
+[7] = fffffd66 (POISON)
+Dump ends.
+born at src/main.cpp: 58, name: "PUSH"
+ALLIGEN: <0>,	GOOSE_SIZE: <0>
+size = <1>	capasity = <8>
+[0] = -666
+[1] = fffffd66 (POISON)
+[2] = fffffd66 (POISON)
+[3] = fffffd66 (POISON)
+[4] = fffffd66 (POISON)
+[5] = fffffd66 (POISON)
+[6] = fffffd66 (POISON)
+[7] = fffffd66 (POISON)
+Dump ends.
+born at src/main.cpp: 58, name: "PUSH"
+ALLIGEN: <0>,	GOOSE_SIZE: <0>
+size = <1>	capasity = <8>
+[0] = -666
+[1] = fffffd66 (POISON)
+[2] = fffffd66 (POISON)
+[3] = fffffd66 (POISON)
+[4] = fffffd66 (POISON)
+[5] = fffffd66 (POISON)
+[6] = fffffd66 (POISON)
+[7] = fffffd66 (POISON)
+Dump ends.
+born at src/main.cpp: 52, name: "PUSH"
+ALLIGEN: <0>,	GOOSE_SIZE: <0>
+size = <1>	capasity = <8>
+[0] = -666
+[1] = fffffd66 (POISON)
+[2] = fffffd66 (POISON)
+[3] = fffffd66 (POISON)
+[4] = fffffd66 (POISON)
+[5] = fffffd66 (POISON)
+[6] = fffffd66 (POISON)
+[7] = fffffd66 (POISON)
+Dump ends.
+born at src/main.cpp: 52, name: "PUSH"
+ALLIGEN: <0>,	GOOSE_SIZE: <0>
+size = <1>	capasity = <8>
+[0] = -666
+[1] = fffffd66 (POISON)
+[2] = fffffd66 (POISON)
+[3] = fffffd66 (POISON)
+[4] = fffffd66 (POISON)
+[5] = fffffd66 (POISON)
+[6] = fffffd66 (POISON)
+[7] = fffffd66 (POISON)
+Dump ends.
+born at src/main.cpp: 62, name: "POP"
+ALLIGEN: <0>,	GOOSE_SIZE: <0>
+size = <0>	capasity = <8>
+[0] = -666
+[1] = fffffd66 (POISON)
+[2] = fffffd66 (POISON)
+[3] = fffffd66 (POISON)
+[4] = fffffd66 (POISON)
+[5] = fffffd66 (POISON)
+[6] = fffffd66 (POISON)
+[7] = fffffd66 (POISON)
+Dump ends.
+born at src/main.cpp: 52, name: "PUSH"
+ALLIGEN: <0>,	GOOSE_SIZE: <0>
+size = <1>	capasity = <8>
+[0] = -666
+[1] = fffffd66 (POISON)
+[2] = fffffd66 (POISON)
+[3] = fffffd66 (POISON)
+[4] = fffffd66 (POISON)
+[5] = fffffd66 (POISON)
+[6] = fffffd66 (POISON)
+[7] = fffffd66 (POISON)
+Dump ends.
+born at src/main.cpp: 52, name: "PUSH"
+ALLIGEN: <0>,	GOOSE_SIZE: <0>
+size = <1>	capasity = <8>
+[0] = -666
+[1] = fffffd66 (POISON)
+[2] = fffffd66 (POISON)
+[3] = fffffd66 (POISON)
+[4] = fffffd66 (POISON)
+[5] = fffffd66 (POISON)
+[6] = fffffd66 (POISON)
+[7] = fffffd66 (POISON)
+Dump ends.
+born at src/main.cpp: 185, name: "stk"
+ALLIGEN: <0>,	GOOSE_SIZE: <0>
+size = <1>	capasity = <8>
+[0] = -666
+[1] = fffffd66 (POISON)
+[2] = fffffd66 (POISON)
+[3] = fffffd66 (POISON)
+[4] = fffffd66 (POISON)
+[5] = fffffd66 (POISON)
+[6] = fffffd66 (POISON)
+[7] = fffffd66 (POISON)
+Dump ends.
+born at src/main.cpp: 196, name: "HLT"
+ALLIGEN: <0>,	GOOSE_SIZE: <0>
+size = <1>	capasity = <8>
+[0] = -666
+[1] = fffffd66 (POISON)
+[2] = fffffd66 (POISON)
+[3] = fffffd66 (POISON)
+[4] = fffffd66 (POISON)
+[5] = fffffd66 (POISON)
+[6] = fffffd66 (POISON)
+[7] = fffffd66 (POISON)
+Dump ends.
+born at src/main.cpp: 52, name: "PUSH"
+ALLIGEN: <0>,	GOOSE_SIZE: <0>
+size = <1>	capasity = <8>
+[0] = -666
+[1] = fffffd66 (POISON)
+[2] = fffffd66 (POISON)
+[3] = fffffd66 (POISON)
+[4] = fffffd66 (POISON)
+[5] = fffffd66 (POISON)
+[6] = fffffd66 (POISON)
+[7] = fffffd66 (POISON)
+Dump ends.
+born at src/main.cpp: 52, name: "PUSH"
+ALLIGEN: <0>,	GOOSE_SIZE: <0>
+size = <1>	capasity = <8>
+[0] = -666
+[1] = fffffd66 (POISON)
+[2] = fffffd66 (POISON)
+[3] = fffffd66 (POISON)
+[4] = fffffd66 (POISON)
+[5] = fffffd66 (POISON)
+[6] = fffffd66 (POISON)
+[7] = fffffd66 (POISON)
+Dump ends.
+born at src/main.cpp: 62, name: "POP"
+ALLIGEN: <0>,	GOOSE_SIZE: <0>
+size = <0>	capasity = <8>
+[0] = -666
+[1] = fffffd66 (POISON)
+[2] = fffffd66 (POISON)
+[3] = fffffd66 (POISON)
+[4] = fffffd66 (POISON)
+[5] = fffffd66 (POISON)
+[6] = fffffd66 (POISON)
+[7] = fffffd66 (POISON)
+Dump ends.
+born at src/main.cpp: 52, name: "PUSH"
+ALLIGEN: <0>,	GOOSE_SIZE: <0>
+size = <1>	capasity = <8>
+[0] = -666
+[1] = fffffd66 (POISON)
+[2] = fffffd66 (POISON)
+[3] = fffffd66 (POISON)
+[4] = fffffd66 (POISON)
+[5] = fffffd66 (POISON)
+[6] = fffffd66 (POISON)
+[7] = fffffd66 (POISON)
+Dump ends.
+born at src/main.cpp: 52, name: "PUSH"
+ALLIGEN: <0>,	GOOSE_SIZE: <0>
+size = <1>	capasity = <8>
+[0] = -666
+[1] = fffffd66 (POISON)
+[2] = fffffd66 (POISON)
+[3] = fffffd66 (POISON)
+[4] = fffffd66 (POISON)
+[5] = fffffd66 (POISON)
+[6] = fffffd66 (POISON)
+[7] = fffffd66 (POISON)
+Dump ends.
+born at src/main.cpp: 196, name: "HLT"
+ALLIGEN: <0>,	GOOSE_SIZE: <0>
+size = <1>	capasity = <8>
+[0] = -666
+[1] = fffffd66 (POISON)
+[2] = fffffd66 (POISON)
+[3] = fffffd66 (POISON)
+[4] = fffffd66 (POISON)
+[5] = fffffd66 (POISON)
+[6] = fffffd66 (POISON)
+[7] = fffffd66 (POISON)
+Dump ends.
+born at src/main.cpp: 54, name: "PUSH"
+ALLIGEN: <0>,	GOOSE_SIZE: <0>
+size = <1>	capasity = <8>
+[0] = -666
+[1] = fffffd66 (POISON)
+[2] = fffffd66 (POISON)
+[3] = fffffd66 (POISON)
+[4] = fffffd66 (POISON)
+[5] = fffffd66 (POISON)
+[6] = fffffd66 (POISON)
+[7] = fffffd66 (POISON)
+Dump ends.
+born at src/main.cpp: 54, name: "PUSH"
+ALLIGEN: <0>,	GOOSE_SIZE: <0>
+size = <1>	capasity = <8>
+[0] = -666
+[1] = fffffd66 (POISON)
+[2] = fffffd66 (POISON)
+[3] = fffffd66 (POISON)
+[4] = fffffd66 (POISON)
+[5] = fffffd66 (POISON)
+[6] = fffffd66 (POISON)
+[7] = fffffd66 (POISON)
+Dump ends.
+born at src/main.cpp: 66, name: "POP"
+ALLIGEN: <0>,	GOOSE_SIZE: <0>
+size = <0>	capasity = <8>
+[0] = -666
+[1] = fffffd66 (POISON)
+[2] = fffffd66 (POISON)
+[3] = fffffd66 (POISON)
+[4] = fffffd66 (POISON)
+[5] = fffffd66 (POISON)
+[6] = fffffd66 (POISON)
+[7] = fffffd66 (POISON)
+Dump ends.
+born at src/main.cpp: 54, name: "PUSH"
+ALLIGEN: <0>,	GOOSE_SIZE: <0>
+size = <1>	capasity = <8>
+[0] = -666
+[1] = fffffd66 (POISON)
+[2] = fffffd66 (POISON)
+[3] = fffffd66 (POISON)
+[4] = fffffd66 (POISON)
+[5] = fffffd66 (POISON)
+[6] = fffffd66 (POISON)
+[7] = fffffd66 (POISON)
+Dump ends.
+born at src/main.cpp: 54, name: "PUSH"
+ALLIGEN: <0>,	GOOSE_SIZE: <0>
+size = <1>	capasity = <8>
+[0] = -666
+[1] = fffffd66 (POISON)
+[2] = fffffd66 (POISON)
+[3] = fffffd66 (POISON)
+[4] = fffffd66 (POISON)
+[5] = fffffd66 (POISON)
+[6] = fffffd66 (POISON)
+[7] = fffffd66 (POISON)
+Dump ends.
+born at src/main.cpp: 149, name: "IN"
+ALLIGEN: <0>,	GOOSE_SIZE: <0>
+size = <2>	capasity = <8>
+[0] = -666
+[1] = -666
+[2] = fffffd66 (POISON)
+[3] = fffffd66 (POISON)
+[4] = fffffd66 (POISON)
+[5] = fffffd66 (POISON)
+[6] = fffffd66 (POISON)
+[7] = fffffd66 (POISON)
+Dump ends.
+born at src/main.cpp: 200, name: "HLT"
+ALLIGEN: <0>,	GOOSE_SIZE: <0>
+size = <2>	capasity = <8>
+[0] = -666
+[1] = -666
+[2] = fffffd66 (POISON)
+[3] = fffffd66 (POISON)
+[4] = fffffd66 (POISON)
+[5] = fffffd66 (POISON)
+[6] = fffffd66 (POISON)
+[7] = fffffd66 (POISON)
+Dump ends.
+born at src/main.cpp: 57, name: "PUSH"
+ALLIGEN: <0>,	GOOSE_SIZE: <0>
+size = <1>	capasity = <8>
+[0] = -666
+[1] = fffffd66 (POISON)
+[2] = fffffd66 (POISON)
+[3] = fffffd66 (POISON)
+[4] = fffffd66 (POISON)
+[5] = fffffd66 (POISON)
+[6] = fffffd66 (POISON)
+[7] = fffffd66 (POISON)
+Dump ends.
+born at src/main.cpp: 57, name: "PUSH"
+ALLIGEN: <0>,	GOOSE_SIZE: <0>
+size = <1>	capasity = <8>
+[0] = -666
+[1] = fffffd66 (POISON)
+[2] = fffffd66 (POISON)
+[3] = fffffd66 (POISON)
+[4] = fffffd66 (POISON)
+[5] = fffffd66 (POISON)
+[6] = fffffd66 (POISON)
+[7] = fffffd66 (POISON)
+Dump ends.
+born at src/main.cpp: 69, name: "POP"
+ALLIGEN: <0>,	GOOSE_SIZE: <0>
+size = <0>	capasity = <8>
+[0] = -666
+[1] = fffffd66 (POISON)
+[2] = fffffd66 (POISON)
+[3] = fffffd66 (POISON)
+[4] = fffffd66 (POISON)
+[5] = fffffd66 (POISON)
+[6] = fffffd66 (POISON)
+[7] = fffffd66 (POISON)
+Dump ends.
+born at src/main.cpp: 57, name: "PUSH"
+ALLIGEN: <0>,	GOOSE_SIZE: <0>
+size = <1>	capasity = <8>
+[0] = -666
+[1] = fffffd66 (POISON)
+[2] = fffffd66 (POISON)
+[3] = fffffd66 (POISON)
+[4] = fffffd66 (POISON)
+[5] = fffffd66 (POISON)
+[6] = fffffd66 (POISON)
+[7] = fffffd66 (POISON)
+Dump ends.
+born at src/main.cpp: 57, name: "PUSH"
+ALLIGEN: <0>,	GOOSE_SIZE: <0>
+size = <1>	capasity = <8>
+[0] = -666
+[1] = fffffd66 (POISON)
+[2] = fffffd66 (POISON)
+[3] = fffffd66 (POISON)
+[4] = fffffd66 (POISON)
+[5] = fffffd66 (POISON)
+[6] = fffffd66 (POISON)
+[7] = fffffd66 (POISON)
+Dump ends.
+born at src/main.cpp: 113, name: "MUL"
+ALLIGEN: <0>,	GOOSE_SIZE: <0>
+size = <1>	capasity = <8>
+[0] = -666
+[1] = fffffd66 (POISON)
+[2] = fffffd66 (POISON)
+[3] = fffffd66 (POISON)
+[4] = fffffd66 (POISON)
+[5] = fffffd66 (POISON)
+[6] = fffffd66 (POISON)
+[7] = fffffd66 (POISON)
+Dump ends.
+born at src/main.cpp: 83, name: "ADD"
+ALLIGEN: <0>,	GOOSE_SIZE: <0>
+size = <1>	capasity = <8>
+[0] = -666
+[1] = fffffd66 (POISON)
+[2] = fffffd66 (POISON)
+[3] = fffffd66 (POISON)
+[4] = fffffd66 (POISON)
+[5] = fffffd66 (POISON)
+[6] = fffffd66 (POISON)
+[7] = fffffd66 (POISON)
+Dump ends.
