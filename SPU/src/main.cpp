@@ -1,5 +1,6 @@
-#include "../../Assembler/inc/Assembler.h"
-#include "../inc/RENAME_ME_PLS.h"
+#include "../inc/Spu.h"
+#include "../inc/FuncDeclar.h"
+
 
 static int RunDump (SPU * processor);
 
@@ -7,16 +8,26 @@ int main ()
 {
     SPU processor = {};
 
-    processor.reg = (codeElem *) calloc (QUANTITY_OF_REG, sizeof (codeElem));
-    my_assert (processor.reg);
-
-    processor.ram = (codeElem *) calloc (SIZE_OF_RAM, sizeof (codeElem));
-
+    SPUCtor (&processor);
+    
     CodeReader (&processor);                                                                // Read assembler`s file
 
     printf ("start running\n");
     
     Run (&processor);                                                                       // Do code commands
+
+    return 0;
+}
+
+int SPUCtor (SPU * processor)
+{
+    my_assert (processor);
+
+    processor->reg = (codeElem *) calloc (QUANTITY_OF_REG, sizeof (codeElem));
+    my_assert (processor->reg);
+
+    processor->ram = (codeElem *) calloc (SIZE_OF_RAM, sizeof (codeElem));
+    my_assert (processor->ram);
 
     return 0;
 }
@@ -39,19 +50,21 @@ int Run (SPU * processor)
 
 // КОНЕЦ ДЕБАЖНЫМ                                                                 
 
-    //FILE * RES_FILE = fopen (RESULT_FILE, "a+");                                            // Open file with results of SPU
-    while (true)
+    //FILE * RES_FILE = fopen (RESULT_FILE, "a+");                                          // Open file with results of SPU
+    for ( ; processor->n_elems > processor->ip; processor->ip++)
     {
-        switch (processor->code[processor->ip] & MASK_COMMAND)                            // Switch to command
+        RunDump (processor);
+
+        COLOR_PRINT (RED, "Ip = %d\n", processor->ip);
+
+        switch (processor->code[processor->ip] & MASK_COMMAND)                              // Switch to command
         {
             case (PUSH):
             { 
                 COLOR_PRINT (GREEN, "\nPush\n\n");
 
-                RunDump (processor);
-
                 int a = GetArgPush (processor);
-                COLOR_PRINT (STRANGE, "%d\n", a);
+
                 StackPush (&stk, a);
 
                 StackDump (&stk, 0, "PUSH", __FILE__, __LINE__);
@@ -66,7 +79,51 @@ int Run (SPU * processor)
 
                 *GetArgPop(processor) = StackPop (&stk);
 
+                printf ("in rax: %d\n", *processor->reg);
+
+
                 StackDump (&stk, 0, "POP", __FILE__, __LINE__);
+
+                break;
+            }
+            case (JA):
+            {
+                COLOR_PRINT (GREEN, "\nja\n\n");
+
+                RunDump (processor);
+
+                stackElem a = StackPop (&stk);
+                stackElem b = StackPop (&stk);
+
+                if (a > b)
+                    processor->ip = processor->code[processor->ip + 1];
+
+                break;
+            }
+            case (JB):
+            {
+                COLOR_PRINT (GREEN, "\njb\n\n");
+
+                RunDump (processor);
+
+                stackElem a = StackPop (&stk);
+                stackElem b = StackPop (&stk);
+
+                if (a < b)
+                    processor->ip = processor->ip + 1;
+
+                break;
+            }
+            case (JMP):
+            {
+                COLOR_PRINT (GREEN, "\nPop\n\n");
+
+                RunDump (processor);
+
+                stackElem a = StackPop (&stk);
+                stackElem b = StackPop (&stk);
+
+                processor->ip = processor->ip + 1;
 
                 break;
             }
@@ -81,7 +138,6 @@ int Run (SPU * processor)
 
                 StackPush (&stk, a + b);
                 StackDump (&stk, 0, "ADD", __FILE__, __LINE__);
-
 
                 break;
             }
@@ -213,8 +269,6 @@ int Run (SPU * processor)
                 return -1;
             }
         }
-
-        processor->ip++;
     }
     return 0;
 }
@@ -228,18 +282,35 @@ int GetArgPush (SPU * processor)
 {
     my_assert (processor);
 
+    COLOR_PRINT (MANGETA, "Check ip: %d\n", processor->ip);
+    size_t   offset    = 0;
     codeElem arg_type  = processor->code[processor->ip++];
+
+    printf ("In getarg: arg_type %d\n", arg_type);
+    
     codeElem arg_value = 0;
 
     if (arg_type & HAVE_REG)
-        arg_value += processor->reg[processor->code[processor->ip++]];
+    {    
+        arg_value += processor->reg[processor->code[processor->ip]];
+        printf ("arg_value %d\n", arg_value);
 
-    if (arg_type & HAVE_NUM)
-        arg_value = processor->code[processor->ip++];
+        offset++;
+    }
 
+    if (arg_type & HAVE_ARG)
+        arg_value += processor->code[processor->ip + offset];
+    else
+        offset--;
+    printf ("arg_value %d\n", arg_value);
 
     if (arg_type & HAVE_RAM)
         arg_value = processor->ram[arg_value];
+
+    processor->ip += offset;
+
+    COLOR_PRINT (MANGETA, "Checked ip: %d\n", processor->ip);
+
 
     return arg_value;
 }
@@ -249,13 +320,13 @@ codeElem * GetArgPop (SPU * processor)
     my_assert(processor);
     
     codeElem   arg_type  = processor->code[processor->ip++];
-    codeElem * arg_value = 0;
+    codeElem * arg_value = NULL;
 
     if (arg_type & HAVE_REG)
-        arg_value = processor->reg + processor->code[processor->ip++];
+        arg_value = processor->reg + processor->code[processor->ip];
     
     if (arg_type & HAVE_RAM)
-        arg_value = processor->ram + *arg_value;
+        arg_value = &(processor->ram[*arg_value]);
 
     return arg_value;
 }
@@ -285,6 +356,7 @@ int CodeReader (SPU * processor)
 // DEBUG
     COLOR_PRINT(GREEN, "CREATORS NAMME: %d      VERSION: %d\n", check_creators_name, check_version);
     COLOR_PRINT(RED, "CREATORS NAMME: %d      VERSION: %d\n", processor->creator_name, processor->version);
+    COLOR_PRINT(RED, "n_elements %d\n", processor->n_elems);
 // END PRINTF
 
     my_assert (check_creators_name == processor->creator_name);
@@ -296,6 +368,8 @@ int CodeReader (SPU * processor)
 
         pointer_to_text += offset;
     }
+
+    // fread (processor->code, sizeof (codeElem), processor->n_elems, )
 
     return 0;
 }

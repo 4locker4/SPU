@@ -1,9 +1,7 @@
-push 10
-push 999
-push 1000
-inp
-pop AX
-push [AX + 144]
+push 10 ;adfsasf
+pop rax
+push 11
+push rax
+mul
 outp
-push AX + 202
 hlt

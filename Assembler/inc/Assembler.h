@@ -1,128 +1,73 @@
 #ifndef ASSEMBLER_H
 #define ASSEMBLER_H
 
-#include <stdio.h>
-#include <math.h>
-#include <stdlib.h>
-#include <strings.h>
-#include "C:\Users\eremc\.vscode\Tests\TX\TXLib.h"
-
-
-#include "../../Stack/inc/Stack.h"
-
-//------------------------------------- TYPEDEF ------------------------------------
-
-typedef int codeElem;
+#include "../../Includes/Aggregate.h"
 
 //-------------------------------------  CONST  ------------------------------------
 
-const int      STACK_SIZE       = 8;
-
-const int      MASK_COMMAND     = 0x0F;
-
-const int      MASK_REGISTER    = 0x10;
-
-const codeElem VERSION          = 1;
-
-const codeElem CREATORS_NAME    = 0xE1DA;
-
-const char *   LOG_FILE         = "../../Debug/Log.txt";
-
 const char *   READ_FILE        = "../Assembler/Read.txt";
 
-const char *   ASSEMBLED_FILE_D = "../../Debug/AssembledDebugV.txt";
+const char *   ASM_DEBUG        = "../Debug/AssembledDebugV.txt";
 
-const char *   ASSEMBLER_FILE   = "../Assembler/Assembler.txt";
-
-const char *   RESULT_FILE      = "../../SPU/Results.txt";
-
-const char *   SPU_DEBUG_FILE   = "../Debug/SPUDebugFile.txt";
-
-const int      QUANTITY_OF_REG  = 5;
-
-const size_t   SIZE_OF_RAM      = 512;
-
-//-------------------------------------  ENUM   -------------------------------------
-
-enum PROGRAMMS
-{
-    HLT,
-
-    PUSH,
-    POP,
-    ADD, 
-    SUB,
-    MUL,
-    DIV,
-
-    OUTP,
-    INP,
-
-    SQRT,
-    SIN,
-    COS,
-
-    DUMP
-};
-
-enum REGISTERS_INT_VAL
-{
-    HAVE_NUM = 0x20,
-    HAVE_REG = 0x40,
-    HAVE_RAM = 0x80,
-};
-
-enum REGISTERS
-{
-    NX = 0,
-    AX,
-    BX,
-    CX,
-    DX
-};
+const int      REALLOC_SIZE      = 8;
 
 //------------------------------------- STRUCT ------------------------------------
+typedef struct
+{
+    int    cmd_code  = NCMD;
+    size_t cmd_len   = 0;
+
+    char * cmd_start = NULL;
+
+    codeElem arg = 0;
+    codeElem reg = 0;
+} CMD;
 
 typedef struct
 {
     codeElem creator_name = CREATORS_NAME;
     codeElem version      = VERSION;
 
-    const char * log_file       = LOG_FILE;
     const char * read_file      = READ_FILE;
     const char * assembler_file = ASSEMBLER_FILE;
+    const char * assembler_bin  = ASSEMBLER_BIN_F;
 
-    codeElem * code = NULL;
+    CMD  * code = NULL;
+    char * text = NULL;
 
-    int n_elems = 0;
-    int ip      = 0;
+//TODO sizet
+    int n_elems   = 0;
+    int n_strings = 0;
+    int ip        = 0;
 } ASSEMBLER;
 
 typedef struct
 {
-    codeElem creator_name = CREATORS_NAME;
-    codeElem version      = VERSION;
+    codeElem ip_to_jmp = -1;
+    int      label_ip  = -1;
+    char *   name      = NULL;
+} LABEL_DATA;
 
-    const char * log_file       = LOG_FILE;
-    const char * read_file      = READ_FILE;
-    const char * assembler_file = ASSEMBLER_FILE;
-
-    codeElem * code = NULL;
-    codeElem * reg  = NULL;
-    codeElem * ram  = NULL;
-
-    int ip      = 0;
-    int n_elems = 0;
-
-} SPU;
+typedef struct
+{
+    size_t free_cell         = 0;
+    size_t array_size        = 0;             // TODO rename capacity
+    LABEL_DATA * label_array = NULL;
+} LABEL_STRUCT;
 
 //------------------------------------- DEFINE ------------------------------------
 
 #define str_ncase_cmp(text, word)                               \
-    else if (!strncasecmp (text, #word, sizeof (#word) - 1))    \
+    else if (!strncasecmp (text, #word, strlen (#word)))        \
     {                                                           \
-        stk->code[stk->ip++] = word;                            \
-        text += sizeof (#word) + 1;                             \
+        stk->code->cmd_code  = word;                            \
+        stk->code->cmd_start = text;                            \
+        stk->code->cmd_len   = strlen (text);                   \
+                                                                \
+        stk->n_elems += 1;                                      \
+        stk->text += stk->code->cmd_len;                        \
+        stk->code++;                                            \
+                                                                \
         COLOR_PRINT(MANGETA, "%d - strcmp %s\n", stk->code[stk->ip], #word);\
     }
 

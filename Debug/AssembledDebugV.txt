@@ -1,0 +1,421 @@
+DUMP
+
+CREATOR: e1da
+VERSION: 1
+n_elements = 0;    ip = 0
+push 10 slash 0
+push 999 slash 0
+add slash 0
+push 88888 slash 0
+ja Casas slash 0
+add slash 0
+push [rax + 144 slash 0
+push rdx + 202 slash 0
+Casas slash 0
+hlt slash 0
+DUMP
+
+CREATOR: e1da
+VERSION: 1
+n_elements = 0;    ip = 0
+push 10 slash 0
+push 999 slash 0
+add slash 0
+push 88888 slash 0
+ja Casas slash 0
+add slash 0
+push [rax + 144 slash 0
+push rdx + 202 slash 0
+Casas slash 0
+hlt slash 0
+DUMP
+
+CREATOR: e1da
+VERSION: 1
+n_elements = 0;    ip = 0
+push 10 slash 0
+push 999 slash 0
+add slash 0
+push 88888 slash 0
+ja Casas slash 0
+add slash 0
+push [rax + 144 slash 0
+push rdx + 202 slash 0
+Casas slash 0
+hlt slash 0
+DUMP
+
+CREATOR: e1da
+VERSION: 1
+n_elements = 0;    ip = 0
+push 10 slash 0
+push 999 slash 0
+add slash 0
+push 88888 slash 0
+ja Casas slash 0
+add slash 0
+push [rax + 144 slash 0
+push rdx + 202 slash 0
+Casas slash 0
+hlt slash 0
+DUMP
+
+CREATOR: e1da
+VERSION: 1
+n_elements = 0;    ip = 0
+push 10 slash 0
+push 999 slash 0
+add slash 0
+push 88888 slash 0
+ja Casas slash 0
+add slash 0
+push [rax + 144 slash 0
+push rdx + 202 slash 0
+Casas slash 0
+hlt slash 0
+DUMP
+
+CREATOR: e1da
+VERSION: 1
+n_elements = 0;    ip = 0
+push 10 slash 0
+push 999 slash 0
+add slash 0
+push 88888 slash 0
+ja Casas slash 0
+add slash 0
+push [rax + 144 slash 0
+push rdx + 202 slash 0
+Casas slash 0
+hlt slash 0
+DUMP
+
+CREATOR: e1da
+VERSION: 1
+n_elements = 0;    ip = 0
+push 10 slash 0
+push 999 slash 0
+add slash 0
+push 88888 slash 0
+ja Casas slash 0
+add slash 0
+push [rax + 144 slash 0
+push rdx + 202 slash 0
+Casas slash 0
+hlt slash 0
+DUMP
+
+CREATOR: e1da
+VERSION: 1
+n_elements = 0;    ip = 0
+push 10 slash 0
+push 999 slash 0
+add slash 0
+push 88888 slash 0
+ja Casas slash 0
+add slash 0
+push [rax + 144 slash 0
+push rdx + 202 slash 0
+Casas slash 0
+hlt slash 0
+DUMP
+
+CREATOR: e1da
+VERSION: 1
+n_elements = 0;    ip = 0
+push 10 slash 0
+push 999 slash 0
+add slash 0
+push 88888 slash 0
+ja Casas slash 0
+add slash 0
+push [rax + 144 slash 0
+push rdx + 202 slash 0
+Casas slash 0
+hlt slash 0
+DUMP
+
+CREATOR: e1da
+VERSION: 1
+n_elements = 0;    ip = 0
+push 10 slash 0
+push 999 slash 0
+add slash 0
+push 88888 slash 0
+ja Casas slash 0
+add slash 0
+push [rax + 144 slash 0
+push rdx + 202 slash 0
+Casas slash 0
+hlt slash 0
+DUMP
+
+CREATOR: e1da
+VERSION: 1
+n_elements = 0;    ip = 0
+push 10 slash 0
+push 999 slash 0
+add slash 0
+push 88888 slash 0
+ja Casas slash 0
+add slash 0
+push [rax + 144 slash 0
+push rdx + 202 slash 0
+Casas slash 0
+hlt slash 0
+DUMP
+
+CREATOR: e1da
+VERSION: 1
+n_elements = 0;    ip = 0
+push 10 slash 0
+push 999 slash 0
+add slash 0
+push 88888 slash 0
+ja Casas slash 0
+add slash 0
+push [rax + 144 slash 0
+push rdx + 202 slash 0
+Casas slash 0
+hlt slash 0
+DUMP
+
+CREATOR: e1da
+VERSION: 1
+n_elements = 0;    ip = 0
+push 10 slash 0
+push 999 slash 0
+add slash 0
+push 88888 slash 0
+ja Casas slash 0
+add slash 0
+push [rax + 144 slash 0
+push rdx + 202 slash 0
+Casas slash 0
+hlt slash 0
+DUMP
+
+CREATOR: e1da
+VERSION: 1
+n_elements = 0;    ip = 0
+push 10 slash 0
+push 999 slash 0
+add slash 0
+push 88888 slash 0
+ja Casas slash 0
+add slash 0
+push [rax + 144 slash 0
+push rdx + 202 slash 0
+Casas slash 0
+hlt slash 0
+DUMP
+
+CREATOR: e1da
+VERSION: 1
+n_elements = 0;    ip = 0
+push 10 slash 0
+push 999 slash 0
+add slash 0
+Casas slash 0
+push 88888 slash 0
+ja Casas slash 0
+add slash 0
+push [rax + 144 slash 0
+push rdx + 202 slash 0
+hlt slash 0
+DUMP
+
+CREATOR: e1da
+VERSION: 1
+n_elements = 0;    ip = 0
+push 10 slash 0
+push 999 slash 0
+add slash 0
+Casas slash 0
+push 88888 slash 0
+ja Casas slash 0
+add slash 0
+push [rax + 144 slash 0
+push rdx + 202 slash 0
+hlt slash 0
+DUMP
+
+CREATOR: e1da
+VERSION: 1
+n_elements = 0;    ip = 0
+push 10 slash 0
+push 999 slash 0
+add slash 0
+Casas slash 0
+push 88888 slash 0
+ja Casas slash 0
+add slash 0
+push [rax + 144 slash 0
+push rdx + 202 slash 0
+hlt slash 0
+DUMP
+
+CREATOR: e1da
+VERSION: 1
+n_elements = 0;    ip = 0
+push 10 slash 0
+push 999 slash 0
+add slash 0
+Casas slash 0
+push 88888 slash 0
+ja Casas slash 0
+add slash 0
+push [rax + 144 slash 0
+push rdx + 202 slash 0
+hlt slash 0
+DUMP
+
+CREATOR: e1da
+VERSION: 1
+n_elements = 0;    ip = 0
+push 10 slash 0
+huii slash 0
+push 999 slash 0
+add slash 0
+Casas slash 0
+push 88888 slash 0
+ja Casas slash 0
+hlt slash 0
+add slash 0
+jmp huii  slash 0
+push [rax + 144 slash 0
+push rdx + 202 slash 0
+hlt slash 0
+DUMP
+
+CREATOR: e1da
+VERSION: 1
+n_elements = 0;    ip = 0
+push 10 slash 0
+huii slash 0
+push 999 slash 0
+jb 7 slash 0
+add slash 0
+Casas slash 0
+push 88888 slash 0
+ja Casas slash 0
+hlt slash 0
+jb hhh slash 0
+add slash 0
+jmp huii  slash 0
+push [rax + 144 slash 0
+push rdx + 202 slash 0
+hhh slash 0
+hlt slash 0
+DUMP
+
+CREATOR: e1da
+VERSION: 1
+n_elements = 0;    ip = 0
+push 10 slash 0
+push 10 slash 0
+mul slash 0
+pop slash 0
+hlt slash 0
+DUMP
+
+CREATOR: e1da
+VERSION: 1
+n_elements = 0;    ip = 0
+push 10 slash 0
+push 10 slash 0
+mul slash 0
+outp slash 0
+hlt slash 0
+DUMP
+
+CREATOR: e1da
+VERSION: 1
+n_elements = 0;    ip = 0
+push rax 10  slash 0
+push 10 slash 0
+mul slash 0
+outp slash 0
+hlt slash 0
+DUMP
+
+CREATOR: e1da
+VERSION: 1
+n_elements = 0;    ip = 0
+push 10  slash 0
+pop rax slash 0
+mul slash 0
+outp slash 0
+hlt slash 0
+DUMP
+
+CREATOR: e1da
+VERSION: 1
+n_elements = 0;    ip = 0
+push 10  slash 0
+pop rax slash 0
+push 11 slash 0
+push rax slash 0
+mul slash 0
+outp slash 0
+hlt slash 0
+DUMP
+
+CREATOR: e1da
+VERSION: 1
+n_elements = 0;    ip = 0
+push 10  slash 0
+pop rax slash 0
+push 11 slash 0
+push rax slash 0
+mul slash 0
+outp slash 0
+hlt slash 0
+DUMP
+
+CREATOR: e1da
+VERSION: 1
+n_elements = 0;    ip = 0
+push 10  slash 0
+pop rax slash 0
+push 11 slash 0
+push rax slash 0
+mul slash 0
+outp slash 0
+hlt slash 0
+DUMP
+
+CREATOR: e1da
+VERSION: 1
+n_elements = 0;    ip = 0
+push 10  slash 0
+pop rax slash 0
+push 11 slash 0
+push rax slash 0
+mul slash 0
+outp slash 0
+hlt slash 0
+DUMP
+
+CREATOR: e1da
+VERSION: 1
+n_elements = 0;    ip = 0
+push 10  slash 0
+pop rax slash 0
+push 11 slash 0
+push rax slash 0
+mul slash 0
+outp slash 0
+hlt slash 0
+DUMP
+
+CREATOR: e1da
+VERSION: 1
+n_elements = 0;    ip = 0
+push 10  slash 0
+pop rax slash 0
+push 11 slash 0
+push rax slash 0
+mul slash 0
+outp slash 0
+hlt slash 0
