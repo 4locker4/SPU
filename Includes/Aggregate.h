@@ -18,7 +18,7 @@ typedef int codeElem;
 //-------------------------------------  CONST  ------------------------------------
 const char *   ASSEMBLER_FILE   = "../Assembler/Assembler.txt";
 
-const char *   ASSEMBLER_BIN_F  = "../Assembler/AssemblerBin.txt";
+const char *   ASSEMBLER_BIN_F  = "../Assembler/AssemblerBin.bin";
 
 const int      QUANTITY_OF_REG  = 4;
 
@@ -26,11 +26,9 @@ const int      LEN_OF_REGISTER  = 3;
 
 const int      STACK_SIZE       = 8;
 
-const int      MASK_COMMAND     = 0x0F;
+const int      MASK_COMMAND     = 0x1F;
 
-const int      MASK_REGISTER    = 0x10;
-
-const codeElem VERSION          = 1;
+const codeElem VERSION          = 3;
 
 const codeElem CREATORS_NAME    = 0xE1DA;
 
@@ -58,9 +56,13 @@ enum PROGRAMMS
 
     JMP, 
     JA,
+    JAE,
     JB,
+    JBE,
+    JE,
 
     CALL,
+    RET,
     
     NCMD
 };

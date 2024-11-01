@@ -14,8 +14,7 @@ const int      REALLOC_SIZE      = 8;
 //------------------------------------- STRUCT ------------------------------------
 typedef struct
 {
-    int    cmd_code  = NCMD;
-    size_t cmd_len   = 0;
+    int    cmd_code  = -1;
 
     char * cmd_start = NULL;
 
@@ -34,11 +33,11 @@ typedef struct
 
     CMD  * code = NULL;
     char * text = NULL;
-
-//TODO sizet
-    int n_elems   = 0;
-    int n_strings = 0;
-    int ip        = 0;
+    
+    size_t file_size = 0;
+    size_t n_elems   = 0;
+    size_t n_strings = 0;
+    size_t ip        = 0;
 } ASSEMBLER;
 
 typedef struct
@@ -55,20 +54,19 @@ typedef struct
     LABEL_DATA * label_array = NULL;
 } LABEL_STRUCT;
 
-//------------------------------------- DEFINE ------------------------------------
 
-#define str_ncase_cmp(text, word)                               \
-    else if (!strncasecmp (text, #word, strlen (#word)))        \
-    {                                                           \
-        stk->code->cmd_code  = word;                            \
-        stk->code->cmd_start = text;                            \
-        stk->code->cmd_len   = strlen (text);                   \
-                                                                \
-        stk->n_elems += 1;                                      \
-        stk->text += stk->code->cmd_len;                        \
-        stk->code++;                                            \
-                                                                \
-        COLOR_PRINT(MANGETA, "%d - strcmp %s\n", stk->code[stk->ip], #word);\
-    }
+
+int InputFromFile       (ASSEMBLER * stk);
+int CodeConverter       (ASSEMBLER * stk);
+int SubStingsMaker      (ASSEMBLER * stk);                                     // Splits strings into substings
+
+int FileWriter          (ASSEMBLER * stk);
+int AssemblerDump       (ASSEMBLER * stk);
+int PushParser          (char * str, CMD * command);
+int PopParser           (char * str, CMD * command);
+int LabelFromJMP        (ASSEMBLER * stk);
+int MemManipulation     (REALLOC_MODE flag);
+// int LabelCleaner        (LABEL_DATA * label);
+int LabelFromLabel      (ASSEMBLER * stk);
 
 #endif //ASSEMBLER_H

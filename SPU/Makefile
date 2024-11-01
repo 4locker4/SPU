@@ -9,7 +9,8 @@ flags = -c -Wshadow -Winit-self -Wredundant-decls -Wcast-align -Wundef -Wfloat-e
 		-Wsign-promo -Wstack-usage=8192 -Wstrict-aliasing -Wstrict-null-sentinel -Wtype-limits 	\
 		-Wwrite-strings -Werror=vla -D_DEBUG -D_EJUDGE_CLIENT_SIDE
 
-includes = ./inc/Assembler.h ../Stack/inc/Utils.h ../Stack/inc/Errors.h ../Stack/inc/Stack.h C:\Users\eremc\.vscode\Tests\TX\TXLib.h
+includes = ./inc/Spu.h ./Includes/Aggregate.h ./inc/FuncDeclar.h ../Stack/inc/Utils.h           \
+		   ../Stack/inc/Errors.h ../Stack/inc/Stack.h C:/Users/eremc/.vscode/Tests/TX/TXLib.h   \
 
 sources = ./src/main.cpp ../Stack/src/Utils.cpp ../Stack/src/Stack.cpp
 

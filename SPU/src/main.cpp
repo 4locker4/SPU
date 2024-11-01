@@ -34,7 +34,9 @@ int SPUCtor (SPU * processor)
 
 int Run (SPU * processor)
 {
-    Stack_t stk = {};                                                                       // Init stack
+    Stack_t stk = {};                                                                       // Init stack of args
+    Stack_t ret_addresses = {};                                                             // Init stack of ret ips
+
 
 // ДЕБАЖНЫЕ
 
@@ -43,7 +45,9 @@ int Run (SPU * processor)
     printf ("ctor start\n");
     
 // СTOR  
-    StackCtor (&stk, STACK_SIZE);                                                           // Create stack
+    StackCtor (&stk, STACK_SIZE);                                                           // Create stack with args
+
+    StackCtor (&ret_addresses, STANDART_SIZE);                                              // Create stack with ret ips
 // CTRO_ENDS
 
     printf ("ctor done\n");
@@ -79,9 +83,6 @@ int Run (SPU * processor)
 
                 *GetArgPop(processor) = StackPop (&stk);
 
-                printf ("in rax: %d\n", *processor->reg);
-
-
                 StackDump (&stk, 0, "POP", __FILE__, __LINE__);
 
                 break;
@@ -94,36 +95,95 @@ int Run (SPU * processor)
 
                 stackElem a = StackPop (&stk);
                 stackElem b = StackPop (&stk);
+                COLOR_PRINT (BLUE, "%d - rbx\n", processor->reg[1]);
 
+
+                COLOR_PRINT (MANGETA, "%d - first ip\t%d - second ip\n", processor->ip, processor->code[processor->ip + 1]);
                 if (a > b)
-                    processor->ip = processor->code[processor->ip + 1];
-
+                    processor->ip = processor->code[++processor->ip];
+                else
+                    processor->ip++;
+                
+                COLOR_PRINT (MANGETA, "%d - last ip\n", processor->ip);
                 break;
             }
-            case (JB):
+            case (JBE):
             {
-                COLOR_PRINT (GREEN, "\njb\n\n");
+                COLOR_PRINT (GREEN, "\njbe\n\n");
 
                 RunDump (processor);
 
                 stackElem a = StackPop (&stk);
                 stackElem b = StackPop (&stk);
 
-                if (a < b)
-                    processor->ip = processor->ip + 1;
+                if (a <= b)
+                    processor->ip = processor->code[processor->ip] - 1;
+                else
+                    processor->ip++;
+
+                break;
+            }
+            case (JAE):
+            {
+                COLOR_PRINT (GREEN, "\njae\n\n");
+
+                RunDump (processor);
+
+                stackElem a = StackPop (&stk);
+                stackElem b = StackPop (&stk);
+
+                if (a >= b)
+                    processor->ip = processor->code[processor->ip] - 1;
+                else
+                    processor->ip++;
+
+                break;
+            }
+            case (JE):
+            {
+                COLOR_PRINT (GREEN, "\nje\n\n");
+
+                RunDump (processor);
+
+                stackElem a = StackPop (&stk);
+                stackElem b = StackPop (&stk);
+
+                if (a == b)
+                    processor->ip = processor->code[processor->ip] - 1;
+                else
+                    processor->ip++;
 
                 break;
             }
             case (JMP):
             {
-                COLOR_PRINT (GREEN, "\nPop\n\n");
+                COLOR_PRINT (GREEN, "\njmp\n\n");
 
                 RunDump (processor);
 
-                stackElem a = StackPop (&stk);
-                stackElem b = StackPop (&stk);
+                processor->ip = processor->code[++processor->ip] - 1;
 
-                processor->ip = processor->ip + 1;
+                break;
+            }
+            case (CALL):
+            {
+                COLOR_PRINT (GREEN, "\nCall\n\n");
+
+#define PUSH_RET_OP(stk, arg) StackPush (stk, arg);
+
+                PUSH_RET_OP (&ret_addresses, processor->ip + 2);
+
+#undef PUSH_RET_OP
+
+                break;
+            }
+            case (RET):
+            {
+#define POP_RET_OP(stk) StackPop (stk);
+
+                processor->ip = POP_RET_OP (&ret_addresses)
+
+#undef POP_RET_OP
 
                 break;
             }
@@ -179,7 +239,7 @@ int Run (SPU * processor)
                 stackElem a = StackPop (&stk);
                 stackElem b = StackPop (&stk);
 
-                StackPush (&stk, a / b);
+                StackPush (&stk, b / a);
                 StackDump (&stk, 0, "DIV", __FILE__, __LINE__);
 
 
@@ -188,6 +248,8 @@ int Run (SPU * processor)
             case (OUTP):
             {
                 RunDump (processor);
+
+                printf ("outp\n");
 
                 COLOR_PRINT (BLUE, "Output val: <%d>\n", StackPop (&stk));
 
@@ -302,6 +364,7 @@ int GetArgPush (SPU * processor)
         arg_value += processor->code[processor->ip + offset];
     else
         offset--;
+
     printf ("arg_value %d\n", arg_value);
 
     if (arg_type & HAVE_RAM)
@@ -310,7 +373,6 @@ int GetArgPush (SPU * processor)
     processor->ip += offset;
 
     COLOR_PRINT (MANGETA, "Checked ip: %d\n", processor->ip);
-
 
     return arg_value;
 }
@@ -324,29 +386,29 @@ codeElem * GetArgPop (SPU * processor)
 
     if (arg_type & HAVE_REG)
         arg_value = processor->reg + processor->code[processor->ip];
+
+    COLOR_PRINT (CYAN, "rx = %d\n", processor->code[processor->ip]);
     
     if (arg_type & HAVE_RAM)
         arg_value = &(processor->ram[*arg_value]);
-
+    
     return arg_value;
 }
 
 int CodeReader (SPU * processor)
 {
-    char * pointer_to_text = FileToStr (processor->assembler_file);                         // Take string with all file`s data 
+    char * pointer_to_text = FileToStr (processor->assembler_file);                             // Take string with all file`s data 
 
-    processor->code = (codeElem *) calloc (processor->n_elems, sizeof (codeElem));          // Allocate memory for array of structs with code datas
-    my_assert (processor->code);
+    processor->code = (codeElem *) calloc (processor->n_elems, sizeof (codeElem));              // Allocate memory for array of structs with code datas
+    my_assert (processor->code);    
 
-    codeElem check_creators_name = 0;                                                       // Here will be creator`s name, read from file
-    codeElem check_version       = 0;                                                       // Here will be version of compiler, read from file
+    codeElem check_creators_name = 0;                                                           // Here will be creator`s name, read from file
+    codeElem check_version       = 0;                                                           // Here will be version of compiler, read from file
 
-    int offset = 0;                                                                         // Offset relatively start of text
-
+    int offset = 0;                                                                             // Offset relatively start of text
 
     my_assert(sscanf (pointer_to_text, "%d %d %d%n", 
-                    &check_creators_name, &check_version, &processor->n_elems, &offset)
-                                                                                    == 3); // Here we passing the value to the variable offset!
+                    &check_creators_name, &check_version, &processor->n_elems, &offset) == 4);  // Here we passing the value to the variable offset!
     printf ("%d - offset\n", offset);
 
     pointer_to_text += offset;

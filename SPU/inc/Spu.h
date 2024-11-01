@@ -17,7 +17,7 @@ typedef struct
     codeElem version      = VERSION;
 
     const char * log_file       = LOG_FILE;
-    const char * assembler_file = ASSEMBLER_FILE;
+    const char * assembler_file = ASSEMBLER_BIN_F;
 
     codeElem * code = NULL;
     codeElem * reg  = NULL;

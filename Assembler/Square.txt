@@ -1,0 +1,120 @@
+    inp                                                 ; a * x ^ 2
+    pop     rax
+    inp                                                 ; b * x
+    pop     rbx
+    inp                                                 ; c
+    pop     rcx
+
+    push    rax
+    push    0
+    je      check_b_zero
+    jmp     a_not_zero
+
+    check_b_zero:
+        push    rbx
+        push    0
+        je      i_n_check_c_zero
+        CALL linear
+        hlt
+    
+    i_n_check_c_zero:
+        push    rcx
+        push    0
+        je      inf_roots
+        jmp     no_roots
+    
+    a_not_zero:
+        push    rbx
+        push    0
+        je      b_zero
+
+        push    rcx
+        push    0
+        je      c_zero
+
+        jmp     full
+
+        b_zero:
+            push    rax
+            push    rcx
+            mul
+            push    0
+            jb      no_roots
+            push    rax
+            pop     rbx
+            CALL    linear
+            hlt
+
+        c_zero:
+            push    rbx
+            pop     rcx
+            push    rax
+            pop     rbx
+            CALL    linear
+            push    0
+            outp
+            hlt
+        
+        full_square:
+            push    rbx
+            CALL    doscrimenant
+            pop     rdx
+            push    rdx
+            sub
+
+            push    rax
+            div
+
+            push    2
+            div
+
+            outp
+
+            push    rbx
+            push    rdx
+            div
+
+            push    rax
+            div
+
+            push    2
+            div
+
+            outp
+
+            hlt
+
+
+
+linear:
+    push    rbx
+    push    rcx
+    div
+    outp
+    ret
+
+doscrimenant:
+    push    rbx
+    push    rbx
+    mul
+    push    4
+    push    rax
+    mul
+    push    rcx
+    mul
+    sqrt
+    ret
+
+inf_roots:
+    push    -666
+    outp
+    hlt
+
+no_roots:
+    push    -1
+    push    -1
+    push    -1
+    outp
+    outp
+    outp
+    hlt
