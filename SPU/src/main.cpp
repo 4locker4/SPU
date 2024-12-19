@@ -1,6 +1,11 @@
 #include "../inc/Spu.h"
 #include "../inc/FuncDeclar.h"
 
+const char *   RESULT_FILE      = "../../Codes/Results.txt";
+
+const char *   SPU_DEBUG_FILE   = "../Debug/SPUDebugFile.txt";
+
+const char *   LOG_FILE         = "../Debug/Log.txt";
 
 static int RunDump (SPU * processor);
 
@@ -22,6 +27,14 @@ int main ()
 int SPUCtor (SPU * processor)
 {
     my_assert (processor);
+
+    processor->creator_name     = CREATORS_NAME;
+
+    processor->version          = VERSION;
+
+    processor->assembler_file   = ASSEMBLER_BIN_F;
+
+    processor->log_file         = LOG_FILE;
 
     processor->reg = (codeElem *) calloc (QUANTITY_OF_REG, sizeof (codeElem));
     my_assert (processor->reg);
@@ -397,7 +410,7 @@ codeElem * GetArgPop (SPU * processor)
 
 int CodeReader (SPU * processor)
 {
-    char * pointer_to_text = FileToStr (processor->assembler_file);                             // Take string with all file`s data 
+    char * pointer_to_text = FileToStr (processor->assembler_file, &processor->file_size);      // Take string with all file`s data 
 
     processor->code = (codeElem *) calloc (processor->n_elems, sizeof (codeElem));              // Allocate memory for array of structs with code datas
     my_assert (processor->code);    

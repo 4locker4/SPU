@@ -7,18 +7,17 @@
 #include <strings.h>
 #include "C:\Users\eremc\.vscode\Tests\TX\TXLib.h"
 
+#include "../Assembler/inc/Utils.h"
 #include "../Stack/inc/Stack.h"
-#include "../Stack/inc/Utils.h"
-#include "../Stack/inc/Errors.h"
 
 //------------------------------------- TYPEDEF ------------------------------------
 
 typedef int codeElem;
 
 //-------------------------------------  CONST  ------------------------------------
-const char *   ASSEMBLER_FILE   = "../Assembler/Assembler.txt";
+const char *   ASSEMBLER_FILE   = "../Codes/Assembler.txt";
 
-const char *   ASSEMBLER_BIN_F  = "../Assembler/AssemblerBin.bin";
+const char *   ASSEMBLER_BIN_F  = "../Codes/AssemblerBin.bin";
 
 const int      QUANTITY_OF_REG  = 4;
 

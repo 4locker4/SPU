@@ -9,15 +9,14 @@ flags = -c -Wshadow -Winit-self -Wredundant-decls -Wcast-align -Wundef -Wfloat-e
 		-Wsign-promo -Wstack-usage=8192 -Wstrict-aliasing -Wstrict-null-sentinel -Wtype-limits 						\
 		-Wwrite-strings -Werror=vla -D_DEBUG -D_EJUDGE_CLIENT_SIDE
 
-includes = C:\Users\eremc\.vscode\Tests\TX\TXLib.h 																	\
-           ../Includes/Aggregate.h ./inc/Assembler.h ./inc/AssemblerFuncs.h 										\
-		   ../Stack/inc/Utils.h ../Stack/inc/Stack.h ../Stack/inc/Defines.h ../Stack/inc/Errors.h					\
+includes =  ../Includes/Aggregate.h ./inc/Assembler.h ./inc/AssemblerFuncs.h 										\
+		   ../Stack/inc/Utils.h ../Stack/inc/Errors.h																\
 
-sources = ./src/main.cpp ../Stack/src/Utils.cpp ../Stack/src/Stack.cpp
+sources = ./src/asm.cpp ../Stack/src/Utils.cpp
 
 objects = $(sources:.cpp=.o)
 
-execute = Stack.exe
+execute = Assembler.exe
 
 all: $(sources) $(execute) run
 

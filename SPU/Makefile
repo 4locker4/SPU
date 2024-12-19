@@ -16,7 +16,7 @@ sources = ./src/main.cpp ../Stack/src/Utils.cpp ../Stack/src/Stack.cpp
 
 objects = $(sources:.cpp=.o)
 
-execute = Stack.exe
+execute = SPU.exe
 
 all: $(sources) $(execute) run
 

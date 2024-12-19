@@ -1,20 +1,19 @@
 inp
-pop  rax
+pop rax                         ;
 push 1
-pop  rbx
+pop rbx
 push rbx
 
 factorial:
     push rbx + 1
-    pop  rbx
+    pop rbx
     push rbx
     mul
     push rax
     push rbx + 1
-    ja  end
+    ja end
     jmp factorial
 
 end:
-
     outp
     hlt

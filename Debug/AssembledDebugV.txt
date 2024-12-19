@@ -2,38 +2,601 @@ DUMP
 
 CREATOR: e1da	VERSION: 3
 -------------------------------------------------------------------------
-| line |    cmd_name    |  cmd_code  |  arg_code  | have_arg | have_reg |
+| line |     cmd_name     |  cmd_code  |  arg_code  | have_arg | have_reg |
+inp
+pop rax
+push 1
+pop rbx
+push rbx
+
+factorial   push rbx + 1
+    pop rbx
+    push rbx
+    mul
+    push rax
+    push rbx + 1
+    ja end
+    jmp factorial
+
+end   outp
+    hltinp
+pop rax
+push 1
+pop rbx
+push rbx
+factorial:
+push rbx + 1
+pop rbx
+push rbx
+mul
+push rax
+push rbx + 1
+ja end
+jmp factorial
+end:
+outp
+hlt
+DUMP
+
+CREATOR: e1da	VERSION: 3
 -------------------------------------------------------------------------
-|    0 |                inp |         8  |         0  |     0  |     0  |
+| line |     cmd_name     |  cmd_code  |  arg_code  | have_arg | have_reg |
+inp
+pop rax
+push 1
+pop rbx
+push rbx
+
+factorial   push rbx + 1
+    pop rbx
+    push rbx
+    mul
+    push rax
+    push rbx + 1
+    ja end
+    jmp factorial
+
+end   outp
+    hltinp
+pop rax
+push 1
+pop rbx
+push rbx
+factorial:
+push rbx + 1
+pop rbx
+push rbx
+mul
+push rax
+push rbx + 1
+ja end
+jmp factorial
+end:
+outp
+hlt
+DUMP
+
+CREATOR: e1da	VERSION: 3
 -------------------------------------------------------------------------
-|    1 |            pop rax |        66  |         0  |     0  |    64  |
+| line |     cmd_name     |  cmd_code  |  arg_code  | have_arg | have_reg |
+inp
+pop rax
+push 1
+pop rbx
+push rbx
+
+factorial   push rbx + 1
+    pop rbx
+    push rbx
+    mul
+    push rax
+    push rbx + 1
+    ja end
+    jmp factorial
+
+end   outp
+    hltinp
+pop rax
+push 1
+pop rbx
+push rbx
+factorial:
+push rbx + 1
+pop rbx
+push rbx
+mul
+push rax
+push rbx + 1
+ja end
+jmp factorial
+end:
+outp
+hlt
+DUMP
+
+CREATOR: e1da	VERSION: 3
 -------------------------------------------------------------------------
-|    2 |             push 1 |        33  |         1  |    32  |     0  |
+| line |     cmd_name     |  cmd_code  |  arg_code  | have_arg | have_reg |
+inp
+pop rax
+push 1
+pop rbx
+push rbx
+
+factorial   push rbx + 1
+    pop rbx
+    push rbx
+    mul
+    push rax
+    push rbx + 1
+    ja end
+    jmp factorial
+
+end   outp
+    hltinp
+pop rax
+push 1
+pop rbx
+push rbx
+factorial:
+push rbx + 1
+pop rbx
+push rbx
+mul
+push rax
+push rbx + 1
+ja end
+jmp factorial
+end:
+outp
+hlt
+DUMP
+
+CREATOR: e1da	VERSION: 3
 -------------------------------------------------------------------------
-|    3 |            pop rbx |        66  |         0  |     0  |    64  |
+| line |     cmd_name     |  cmd_code  |  arg_code  | have_arg | have_reg |
+inp
+pop rax
+push 1
+pop rbx
+push rbx
+
+factorial   push rbx + 1
+    pop rbx
+    push rbx
+    mul
+    push rax
+    push rbx + 1
+    ja end
+    jmp factorial
+
+end   outp
+    hltinp
+pop rax
+push 1
+pop rbx
+push rbx
+factorial:
+push rbx + 1
+pop rbx
+push rbx
+mul
+push rax
+push rbx + 1
+ja end
+jmp factorial
+end:
+outp
+hlt
+DUMP
+
+CREATOR: e1da	VERSION: 3
 -------------------------------------------------------------------------
-|    4 |           push rbx |        65  |         0  |     0  |    64  |
+| line |     cmd_name     |  cmd_code  |  arg_code  | have_arg | have_reg |
+inp
+pop rax
+push 1
+pop rbx
+push rbx
+
+factorial   push rbx + 1
+    pop rbx
+    push rbx
+    mul
+    push rax
+    push rbx + 1
+    ja end
+    jmp factorial
+
+end   outp
+    hltinp
+pop rax
+push 1
+pop rbx
+push rbx
+factorial:
+push rbx + 1
+pop rbx
+push rbx
+mul
+push rax
+push rbx + 1
+ja end
+jmp factorial
+end:
+DUMP
+
+CREATOR: e1da	VERSION: 3
 -------------------------------------------------------------------------
-|    4 |           push rbx |        65  |         0  |     0  |    64  |
+| line |     cmd_name     |  cmd_code  |  arg_code  | have_arg | have_reg |
+inp
+pop rax
+push 1
+pop rbx
+push rbx
+
+factorial   push rbx + 1
+    pop rbx
+    push rbx
+    mul
+    push rax
+    push rbx + 1
+    ja end
+    jmp factorial
+
+end   outp
+    hltinp
+pop rax
+push 1
+pop rbx
+push rbx
+factorial:
+push rbx + 1
+pop rbx
+push rbx
+mul
+push rax
+push rbx + 1
+ja end
+jmp factorial
+end:
+outp
+hlt
+DUMP
+
+CREATOR: e1da	VERSION: 3
 -------------------------------------------------------------------------
-|    5 |       push rbx + 1 |        97  |         1  |    32  |    64  |
+| line |     cmd_name     |  cmd_code  |  arg_code  | have_arg | have_reg |
+inp
+pop rax
+push 1
+pop rbx
+push rbx
+
+factorial   push rbx + 1
+    pop rbx
+    push rbx
+    mul
+    push rax
+    push rbx + 1
+    ja end
+    jmp factorial
+
+end   outp
+    hltinp
+pop rax
+push 1
+pop rbx
+push rbx
+factorial:
+push rbx + 1
+pop rbx
+push rbx
+mul
+push rax
+push rbx + 1
+ja end
+jmp factorial
+end:
+outp
+hlt
+DUMP
+
+CREATOR: e1da	VERSION: 3
 -------------------------------------------------------------------------
-|    6 |            pop rbx |        66  |         0  |     0  |    64  |
+| line |     cmd_name     |  cmd_code  |  arg_code  | have_arg | have_reg |
+inp
+pop rax
+push 1
+pop rbx
+push rbx
+
+factorial   push rbx + 1
+    pop rbx
+    push rbx
+    mul
+    push rax
+    push rbx + 1
+    ja end
+    jmp factorial
+
+end   outp
+    hltinp
+pop rax
+push 1
+pop rbx
+push rbx
+factorial:
+push rbx + 1
+pop rbx
+push rbx
+mul
+push rax
+push rbx + 1
+ja end
+jmp factorial
+end:
+outp
+hlt
+DUMP
+
+CREATOR: e1da	VERSION: 3
 -------------------------------------------------------------------------
-|    7 |           push rbx |        65  |         0  |     0  |    64  |
+| line |     cmd_name     |  cmd_code  |  arg_code  | have_arg | have_reg |
+inp
+pop rax
+push 1
+pop rbx
+push rbx
+
+factorial   push rbx + 1
+    pop rbx
+    push rbx
+    mul
+    push rax
+    push rbx + 1
+    ja end
+    jmp factorial
+
+end   outp
+    hltinp
+pop rax
+push 1
+pop rbx
+push rbx
+factorial:
+push rbx + 1
+pop rbx
+push rbx
+mul
+push rax
+push rbx + 1
+ja end
+jmp factorial
+end:
+outp
+hlt
+DUMP
+
+CREATOR: e1da	VERSION: 3
 -------------------------------------------------------------------------
-|    8 |                mul |         5  |         0  |     0  |     0  |
+| line |     cmd_name     |  cmd_code  |  arg_code  | have_arg | have_reg |
+inp
+pop rax
+push 1
+pop rbx
+push rbx
+
+factorial
+    push rbx + 1
+    pop rbx
+    push rbx
+    mul
+    push rax
+    push rbx + 1
+    ja end
+    jmp factorial
+
+end
+
+    outp
+    hltinp
+inp
+inp
+inp
+inp
+inp
+inp
+inp
+inp
+inp
+inp
+inp
+inp
+inp
+inp
+inp
+inp
+inp
+DUMP
+
+CREATOR: e1da	VERSION: 3
 -------------------------------------------------------------------------
-|    9 |           push rax |        65  |         0  |     0  |    64  |
+| line |     cmd_name     |  cmd_code  |  arg_code  | have_arg | have_reg |
+inp
+pop rax
+push 1
+pop rbx
+push rbx
+
+factorial
+    push rbx + 1
+    pop rbx
+    push rbx
+    mul
+    push rax
+    push rbx + 1
+    ja end
+    jmp factorial
+
+end
+
+    outp
+    hltinp
+inp
+inp
+inp
+inp
+inp
+inp
+inp
+inp
+inp
+inp
+inp
+inp
+inp
+inp
+inp
+inp
+inp
+DUMP
+
+CREATOR: e1da	VERSION: 3
 -------------------------------------------------------------------------
-|   10 |       push rbx + 1 |        97  |         1  |    32  |    64  |
+| line |     cmd_name     |  cmd_code  |  arg_code  | have_arg | have_reg |
+inp
+pop rax
+push 1
+pop rbx
+push rbxinp
+inp
+inp
+inp
+inp
+DUMP
+
+CREATOR: e1da	VERSION: 3
 -------------------------------------------------------------------------
-|   11 |             ja end |        46  |         0  |    32  |     0  |
+| line |     cmd_name     |  cmd_code  |  arg_code  | have_arg | have_reg |
+inp
+pop rax
+push 1
+pop rbx
+push rbx
+
+factorial
+    push rbx + 1
+    pop rbx
+    push rbx
+    mul
+    push rax
+    push rbx + 1
+    ja end
+    jmp factorial
+
+end
+
+    outp
+    hltinp
+inp
+inp
+inp
+inp
+inp
+inp
+inp
+inp
+inp
+inp
+inp
+inp
+inp
+inp
+inp
+inp
+inp
+DUMP
+
+CREATOR: e1da	VERSION: 3
 -------------------------------------------------------------------------
-|   12 |      jmp factorial |        45  |         9  |    32  |     0  |
+| line |     cmd_name     |  cmd_code  |  arg_code  | have_arg | have_reg |
+inp
+pop rax
+push 1
+pop rbx
+push rbx
+
+factorial
+    push rbx + 1
+    pop rbx
+    push rbx
+    mul
+    push rax
+    push rbx + 1
+    ja end
+    jmp factorial
+
+end
+
+    outp
+    hltinp
+inp
+inp
+inp
+inp
+inp
+inp
+inp
+inp
+inp
+inp
+inp
+inp
+inp
+inp
+inp
+inp
+inp
+DUMP
+
+CREATOR: e1da	VERSION: 3
 -------------------------------------------------------------------------
-|   12 |      jmp factorial |        45  |         9  |    32  |     0  |
--------------------------------------------------------------------------
-|   13 |               outp |         7  |         0  |     0  |     0  |
--------------------------------------------------------------------------
-|   14 |                hlt |         0  |         0  |     0  |     0  |
+| line |     cmd_name     |  cmd_code  |  arg_code  | have_arg | have_reg |
+inp
+pop rax
+push 1
+pop rbx
+push rbx
+
+factorial
+    push rbx + 1
+    pop rbx
+    push rbx
+    mul
+    push rax
+    push rbx + 1
+    ja end
+    jmp factorial
+
+end
+
+    outp
+    hltinp
+inp
+inp
+inp
+inp
+inp
+inp
+inp
+inp
+inp
+inp
+inp
+inp
+inp
+inp
+inp
+inp
+inp

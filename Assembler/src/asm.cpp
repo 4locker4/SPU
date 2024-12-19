@@ -1,14 +1,47 @@
 #include "..\inc\Assembler.h"
 
-static LABEL_STRUCT lbls = {};
+const char *   ASM_DEBUG        = "../Debug/AssembledDebugV.txt";
+
+int ReadElemDump (char a);
+int SubDump (char * a);
+int BufWriterDump (ASSEMBLER * asm_st);
 
 int main ()
 {
     ASSEMBLER asm_st = {};
 
-    InputFromFile (&asm_st);
-    CodeConverter (&asm_st);
-    FileWriter (&asm_st);
+    AsmCtor        (&asm_st);
+
+    InputFromFile  (&asm_st);
+
+    CodeConverter  (&asm_st);
+
+    AddLabel       (&asm_st);
+
+    FileWriter     (&asm_st);
+
+    return 0;
+}
+
+int AsmCtor (ASSEMBLER * asm_st)
+{
+//  ASM_CONSTS
+    asm_st->creator_name    = CREATORS_NAME;
+    asm_st->version         = VERSION;
+
+    asm_st->read_file       = "../Codes/Read.txt";
+;
+    asm_st->assembler_file  = ASSEMBLER_FILE;
+    asm_st->assembler_bin   = ASSEMBLER_BIN_F;
+
+//  LABEL STRUCT
+    asm_st->labels.free_cell   = 0;
+    asm_st->labels.capacity    = 0;
+
+    asm_st->file_size = 0;
+    asm_st->n_elems   = 0;
+    asm_st->n_cmd     = 0;
+    asm_st->ip        = 0;
 
     return 0;
 }
@@ -18,8 +51,13 @@ int InputFromFile (ASSEMBLER * asm_st)
     my_assert (asm_st);
 
     asm_st->text = FileToStr (asm_st->read_file, &asm_st->file_size);
+
+    asm_st->text = DelSeveralSpacesAndComms (asm_st->text, asm_st->file_size);
+
+    ReadElemNum (asm_st);
+
     /*  SubStringMaker count strings too    */
-    SubStingsMaker (asm_st);                                                   // Return string whitout any comments and every \n -> \0 
+    SubStringsMaker (asm_st);                                                   // Return string whitout any comments and every \n -> \0 
     
     return 0;
 }   
@@ -27,495 +65,393 @@ int InputFromFile (ASSEMBLER * asm_st)
 int CodeConverter (ASSEMBLER * asm_st)
 {
     my_assert(asm_st);
-    FILE * dump_file = fopen (ASM_DEBUG, "a+");
-    my_assert(dump_file);
 
-    fprintf (dump_file, "DUMP\n\n");
+    asm_st->buffer = (codeElem *) calloc (asm_st->n_elems, sizeof (codeElem));
 
-    fprintf (dump_file, "CREATOR: %x\t"
-                        "VERSION: %d\n",
-                        asm_st->creator_name, asm_st->version);
-    
-    fprintf (dump_file, "-------------------------------------------------------------------------\n");
-    fprintf (dump_file, "| line |    cmd_name    |  cmd_code  |  arg_code  | have_arg | have_reg |\n");
-    my_assert (!fclose (dump_file));
+    int buffer_ip = 0;
 
-    asm_st->code = (CMD *) calloc (asm_st->n_strings, sizeof (CMD));
-    my_assert (asm_st->code);
-
-    printf ("%d - n_strings\n", asm_st->n_strings);
-    for ( ; asm_st->n_strings > asm_st->ip; asm_st->ip++)
+    for (asm_st->ip = 0 ; asm_st->n_cmd > asm_st->ip; asm_st->ip++)
     {
-        COLOR_PRINT(MANGETA, "ip = %d\n", asm_st->ip);
-        if (!strncasecmp (asm_st->text, "push", sizeof ("push") - 1))
+        if (!strncasecmp (asm_st->code[asm_st->ip].cmd_start, "push", sizeof ("push") - 1))
         {
             printf ("Pushed ip = %d\n", asm_st->ip);
-            asm_st->code[asm_st->ip].cmd_start = asm_st->text;
-            
-            asm_st->n_elems += PushParser (asm_st->text, &asm_st->code[asm_st->ip]);
+
+            asm_st->code[asm_st->ip].cmd_code  = PUSH;
+
+            asm_st->code[asm_st->ip].offset += sizeof ("push");
+
+            ArgsParser (asm_st);
         }
-        else if (!strncasecmp (asm_st->text, "pop", sizeof ("pop") - 1))    
+        else if (!strncasecmp (asm_st->code[asm_st->ip].cmd_start, "pop", sizeof ("pop") - 1))    
         {
             printf ("Pop\n");
-            asm_st->code[asm_st->ip].cmd_start = asm_st->text;
+            asm_st->code[asm_st->ip].cmd_code  = POP;
 
-            asm_st->n_elems += PopParser(asm_st->text, &asm_st->code[asm_st->ip]);
+            asm_st->code[asm_st->ip].offset += sizeof ("pop");
+
+            ArgsParser (asm_st);
         }
-        else if (!strncasecmp (asm_st->text, "add", sizeof ("add") - 1))        
+        else if (!strncasecmp (asm_st->code[asm_st->ip].cmd_start, "add", sizeof ("add") - 1))        
         {              
             printf ("Added\n");
-            asm_st->code[asm_st->ip].cmd_start = asm_st->text;
 
-            asm_st->code[asm_st->ip].cmd_code  = ADD;
-                                                                                
-            asm_st->n_elems++;                                      
+            asm_st->code[asm_st->ip].cmd_code  = ADD;  
+
+            asm_st->code[asm_st->ip].offset += sizeof ("add");
         }
-        else if (!strncasecmp (asm_st->text, "mul", sizeof ("mul") - 1))        
+        else if (!strncasecmp (asm_st->code[asm_st->ip].cmd_start, "mul", sizeof ("mul") - 1))        
         {
             printf ("Mul\n");
-            asm_st->code[asm_st->ip].cmd_start = asm_st->text;
 
-            asm_st->code[asm_st->ip].cmd_code  = MUL;                                             
-                                                                    
-            asm_st->n_elems++;                                      
+            asm_st->code[asm_st->ip].cmd_code  = MUL;
+
+            asm_st->code[asm_st->ip].offset += sizeof ("mul");
         }
-        else if (!strncasecmp (asm_st->text, "sub", sizeof ("sub") - 1))        
+        else if (!strncasecmp (asm_st->code[asm_st->ip].cmd_start, "sub", sizeof ("sub") - 1))        
         {
-            asm_st->code[asm_st->ip].cmd_start = asm_st->text;
+            asm_st->code[asm_st->ip].cmd_code  = SUB;
 
-            asm_st->code[asm_st->ip].cmd_code  = SUB;                                             
-                                                                    
-            asm_st->n_elems++;                                      
+            asm_st->code[asm_st->ip].offset += sizeof ("sub");
         }
-        else if (!strncasecmp (asm_st->text, "div", sizeof ("div") - 1))
+        else if (!strncasecmp (asm_st->code[asm_st->ip].cmd_start, "div", sizeof ("div") - 1))
         {
-            asm_st->code[asm_st->ip].cmd_start = asm_st->text;
+            asm_st->code[asm_st->ip].cmd_code  = DIV;
 
-            asm_st->code[asm_st->ip].cmd_code  = DIV;                                             
-                                                                    
-            asm_st->n_elems++;                                      
+            asm_st->code[asm_st->ip].offset += sizeof ("div");
         }
-        else if (!strncasecmp (asm_st->text, "outp", sizeof ("outp") - 1))        
+        else if (!strncasecmp (asm_st->code[asm_st->ip].cmd_start, "outp", sizeof ("outp") - 1))        
         {
-            asm_st->code[asm_st->ip].cmd_start = asm_st->text;
+            printf ("outp\n");
+            asm_st->code[asm_st->ip].cmd_code  = OUTP;
 
-            asm_st->code[asm_st->ip].cmd_code  = OUTP;                                             
-                                                                    
-            asm_st->n_elems++;                                      
+            asm_st->code[asm_st->ip].offset += sizeof ("outp");
         }
-        else if (!strncasecmp (asm_st->text, "inp", sizeof ("inp") - 1))        
+        else if (!strncasecmp (asm_st->code[asm_st->ip].cmd_start, "inp", sizeof ("inp") - 1))        
         {
-            printf ("Inp\n");
-            asm_st->code[asm_st->ip].cmd_start = asm_st->text;
+            printf ("inp\n");
+            asm_st->code[asm_st->ip].cmd_code  = INP;
 
-            asm_st->code[asm_st->ip].cmd_code  = INP;                                             
-                                                                    
-            asm_st->n_elems++;                                      
+            asm_st->code[asm_st->ip].offset += sizeof ("inp");
         }
-        else if (!strncasecmp (asm_st->text, "sin", sizeof ("sin") - 1))        
+        else if (!strncasecmp (asm_st->code[asm_st->ip].cmd_start, "sin", sizeof ("sin") - 1))        
         {
-            asm_st->code[asm_st->ip].cmd_start = asm_st->text;
+            asm_st->code[asm_st->ip].cmd_code  = SIN;
 
-            asm_st->code[asm_st->ip].cmd_code  = SIN;                                             
-                                                                    
-            asm_st->n_elems++;                                      
+            asm_st->code[asm_st->ip].offset += sizeof ("sin");
         }
-        else if (!strncasecmp (asm_st->text, "cos", sizeof ("cos") - 1))        
+        else if (!strncasecmp (asm_st->code[asm_st->ip].cmd_start, "cos", sizeof ("cos") - 1))        
         {
-            asm_st->code[asm_st->ip].cmd_start = asm_st->text;
+            asm_st->code[asm_st->ip].cmd_code  = COS;
 
-            asm_st->code[asm_st->ip].cmd_code  = COS;                                             
-                                                                    
-            asm_st->n_elems++;                                      
+            asm_st->code[asm_st->ip].offset += sizeof ("cos");
         }
-        else if (!strncasecmp (asm_st->text, "sqrt", sizeof ("sqrt") - 1))        
+        else if (!strncasecmp (asm_st->code[asm_st->ip].cmd_start, "sqrt", sizeof ("sqrt") - 1))        
         {
-            asm_st->code[asm_st->ip].cmd_start = asm_st->text;
+            asm_st->code[asm_st->ip].cmd_code  = SQRT;
 
-            asm_st->code[asm_st->ip].cmd_code  = SQRT;                                             
-                                                                    
-            asm_st->n_elems++;                                      
+            asm_st->code[asm_st->ip].offset += sizeof ("sqrt");
         }
-        else if (!strncasecmp (asm_st->text, "dump", sizeof ("dump") - 1))        
+        else if (!strncasecmp (asm_st->code[asm_st->ip].cmd_start, "dump", sizeof ("dump") - 1))        
         {
-            asm_st->code[asm_st->ip].cmd_start = asm_st->text;
+            asm_st->code[asm_st->ip].cmd_code  = DUMP;
 
-            asm_st->code[asm_st->ip].cmd_code  = DUMP;                                             
-                                                                    
-            asm_st->n_elems++;                                      
+            asm_st->code[asm_st->ip].offset += sizeof ("dump");
         }
-        else if (!strncasecmp (asm_st->text, "hlt", sizeof ("hlt") - 1))        
-        {                                 
+        else if (!strncasecmp (asm_st->code[asm_st->ip].cmd_start, "hlt", sizeof ("hlt") - 1))        
+        {
             printf ("hlt\n");
-            asm_st->code[asm_st->ip].cmd_start = asm_st->text;
+            asm_st->code[asm_st->ip].cmd_code  = HLT;
 
-            asm_st->code[asm_st->ip].cmd_code  = HLT;                  
-                                                                    
-            asm_st->n_elems++;                                     
+            asm_st->code[asm_st->ip].offset += sizeof ("hlt");
         }
-        else if (!strncasecmp (asm_st->text, "jmp", sizeof ("jmp") - 1))
+        else if (!strncasecmp (asm_st->code[asm_st->ip].cmd_start, "jmp", sizeof ("jmp") - 1))
         {
             printf ("In jmp\n");
-            asm_st->code[asm_st->ip].cmd_start = asm_st->text;
-
             asm_st->code[asm_st->ip].cmd_code = JMP + HAVE_ARG;
 
-            asm_st->text += sizeof ("jmp");
+            asm_st->code[asm_st->ip].offset += sizeof ("jmp");
 
-            LabelFromJMP (asm_st);
-
-            asm_st->n_elems += 2;
+            ArgsParser (asm_st);
         }
-        else if (!strncasecmp (asm_st->text, "ja", sizeof ("ja") - 1))
+        else if (!strncasecmp (asm_st->code[asm_st->ip].cmd_start, "ja", sizeof ("ja") - 1))
         {
             printf ("In ja\n");
-            asm_st->code[asm_st->ip].cmd_start = asm_st->text;
-            
             asm_st->code[asm_st->ip].cmd_code  = JA + HAVE_ARG;
 
-            asm_st->text += sizeof ("ja");
+            asm_st->code[asm_st->ip].offset += sizeof ("ja");
 
-            LabelFromJMP (asm_st);
-            
-            asm_st->n_elems += 2;
+            ArgsParser (asm_st);
         }
-        else if (!strncasecmp (asm_st->text, "jb", sizeof ("jb") - 1))
+        else if (!strncasecmp (asm_st->code[asm_st->ip].cmd_start, "jb", sizeof ("jb") - 1))
         {
             printf ("In jb\n");
-            asm_st->code[asm_st->ip].cmd_start = asm_st->text;
-
             asm_st->code[asm_st->ip].cmd_code  = JB + HAVE_ARG;
 
-            asm_st->text += sizeof ("jb");
+            asm_st->code[asm_st->ip].offset += sizeof ("jb");
 
-            LabelFromJMP (asm_st);
-                        
-            asm_st->n_elems += 2;
+            ArgsParser( asm_st);
         }
-        else if (!strncasecmp (asm_st->text, "je", sizeof ("je") - 1))
+        else if (!strncasecmp (asm_st->code[asm_st->ip].cmd_start, "je", sizeof ("je") - 1))
         {
             printf ("In je\n");
-            asm_st->code[asm_st->ip].cmd_start = asm_st->text;
-            
             asm_st->code[asm_st->ip].cmd_code  = JE + HAVE_ARG;
 
-            asm_st->text += sizeof ("je");
+            asm_st->code[asm_st->ip].offset += sizeof ("je");
 
-            LabelFromJMP (asm_st);
-            
-            asm_st->n_elems += 2;
+            ArgsParser (asm_st);
         }       
-        else if (!strncasecmp (asm_st->text, "jbe", sizeof ("jbe") - 1))
+        else if (!strncasecmp (asm_st->code[asm_st->ip].cmd_start, "jbe", sizeof ("jbe") - 1))
         {
             printf ("In jnb\n");
-            asm_st->code[asm_st->ip].cmd_start = asm_st->text;
-            
             asm_st->code[asm_st->ip].cmd_code  = JBE + HAVE_ARG;
 
-            asm_st->text += sizeof ("jnb");
+            asm_st->code[asm_st->ip].offset += sizeof ("jbe");
 
-            LabelFromJMP (asm_st);
-            
-            asm_st->n_elems += 2;
+            ArgsParser (asm_st);
         }        
-        else if (!strncasecmp (asm_st->text, "jae", sizeof ("jae") - 1))
+        else if (!strncasecmp (asm_st->code[asm_st->ip].cmd_start, "jae", sizeof ("jae") - 1))
         {
             printf ("In jae\n");
-            asm_st->code[asm_st->ip].cmd_start = asm_st->text;
-            
             asm_st->code[asm_st->ip].cmd_code  = JAE + HAVE_ARG;
 
-            asm_st->text += sizeof ("jae");
+            asm_st->code[asm_st->ip].offset += sizeof ("jae");
 
-            LabelFromJMP (asm_st);
-            
-            asm_st->n_elems += 2;
+            ArgsParser (asm_st);
         }
-        else if (!strncasecmp (asm_st->text, "call", sizeof ("call") - 1))
+        else if (!strncasecmp (asm_st->code[asm_st->ip].cmd_start, "call", sizeof ("call") - 1))
         {
-            printf ("call\n");
-            asm_st->code[asm_st->ip].cmd_start = asm_st->text;
-
             asm_st->code[asm_st->ip].cmd_code = CALL + HAVE_ARG;
 
-            asm_st->text += sizeof ("call");
+            asm_st->code[asm_st->ip].offset += sizeof ("call");
 
-            LabelFromJMP (asm_st);
-
-            asm_st->n_elems += 2;
+            ArgsParser (asm_st);
         }
-        else if (!strncasecmp (asm_st->text, "ret", sizeof ("ret") - 1))
+        else if (!strncasecmp (asm_st->code[asm_st->ip].cmd_start, "ret", sizeof ("ret") - 1))
         {
             printf ("ret\n");
-            asm_st->code[asm_st->ip].cmd_start = asm_st->text;
-
             asm_st->code[asm_st->ip].cmd_code = RET;
 
-            asm_st->n_elems += 1;
+            asm_st->code[asm_st->ip].offset += sizeof ("ret");
+
+            ArgsParser (asm_st);
         }
         else
         {
-            printf ("in else\n");
-            asm_st->code[asm_st->ip].cmd_start = asm_st->text;
+            COLOR_PRINT(RED, "Unknown command: %s\n", asm_st->code[asm_st->ip].cmd_start);
 
-            if (strchr (asm_st->text, ':'))
-            {
-                printf ("Label - %s\n", asm_st->text);
-                LabelFromLabel (asm_st);
-            }
-            else
-            {
-                COLOR_PRINT(RED, "Unknown command: %s\n", asm_st->text);
-                exit (-1);  
-            }
+            exit (-1);
         }
 
-        asm_st->text += strlen (asm_st->text) + 1;
-        COLOR_PRINT (MANGETA, "%s\n",  asm_st->text);
-        AssemblerDump (asm_st);
-        COLOR_PRINT(GREEN, "StrParser\nIteration done\n");
+        BufferWriter (asm_st, &buffer_ip);
     }
-    COLOR_PRINT (BLUE, "n_elems = %d\n", asm_st->n_elems);
-    COLOR_PRINT (RED, "Text parsed\n");
+
+    printf ("end pars\n");
     return 0;
 }
 
-// int LabelCleaner (LABEL_DATA * label)
-// {
-//     my_assert (label);
+int BufferWriter (ASSEMBLER * asm_st, int * buf_ip)
+{
+    my_assert (asm_st);
 
-//     label->ip_to_jmp = -1;
-//     label->label_ip  = -1;
-//     label->name      = NULL;
+    asm_st->buffer[*buf_ip++] = asm_st->code[asm_st->ip].cmd_code;
+
+    if (asm_st->code[asm_st->ip].cmd_code & HAVE_REG)
+        asm_st->buffer[*buf_ip++] = asm_st->code[asm_st->ip].reg;
+
+    if (asm_st->code[asm_st->ip].cmd_code & HAVE_ARG)
+        asm_st->buffer[*buf_ip++] = asm_st->code[asm_st->ip].arg;
+
+    if (*(asm_st->code[asm_st->ip].cmd_start + asm_st->code[asm_st->ip].cmd_len - 2) == ':');
+
+    BufWriterDump (asm_st);
+    return 0;
+}
+
+int BufWriterDump (ASSEMBLER * asm_st)
+{
+    my_assert (asm_st);
+
+    // FILE * debug = fopen (ASM_DEBUG, "a+");
+
+    for (int i = 0; asm_st->n_elems > i; i++)
+    {
+        printf (" %d\n ", asm_st->buffer[i]);
+    }
+
+    // my_assert (fclose (debug));
+    return 0;
+
+}
+
+// мох стать похожим меньше на цветок больше на мох японский сад промок воду пьёт зеленый мох неприметным ковром стелется в тени цветов древней их пестиков шипов мы все исчезнем но не мох
+
+void ReadElemNum (ASSEMBLER * asm_st)
+{
+    my_assert (asm_st);
+
+    for (int ip = 0; asm_st->file_size > ip; ip++)
+    {
+        if (asm_st->text[ip] == ';')
+        {
+            asm_st->n_cmd++;
+            asm_st->n_elems++;
+            
+            while (asm_st->text[ip] != '\0')
+                ip++;
+        }
+        else if (asm_st->text[ip] == '\0')
+        {
+            asm_st->n_cmd++;
+            asm_st->n_elems++;
+        }
+        else if (asm_st->text[ip] == ':')
+        {
+            asm_st->labels.capacity++;
+
+            ip++;
+        }
+        else if (asm_st->text[ip] == ' ' && asm_st->text[ip + 1] != '+')
+            asm_st->n_elems++;
+    }
+
+    return;
+}
+
+char * DelSeveralSpacesAndComms (char * text, size_t text_size)
+{
+    my_assert (text);
+
+    char * new_text = (char *) calloc (text_size, sizeof (char));
+    my_assert (new_text);
+
+    size_t ip = 0;
+
+    if (! isspace (*text))
+        new_text[ip++] = *text;
+
+    text++;
+
+    while (*text != '\0')
+    {
+        if (isspace (*text) && isspace (*(text - 1)))
+        {
+            text++;
+
+            continue;
+        }
+        else if (*text == ';')
+        {
+            *(text - 1) = '\0';
+
+            while (*text != '\n')
+                text++;
+            
+            text++;
+
+            continue;
+        }
+
+        if (*text == '\r')
+            new_text[ip++] = '\0';
+        else
+            new_text[ip++] = *text;
+
+        text++;
+    }
+
+    new_text = (char *) realloc (new_text, sizeof (char) * (ip));
+    my_assert (new_text);
+
+    new_text[ip] = '\0';
+
+    return new_text;
+}
+
+// int ReadElemDump (char a)
+// {
+//     FILE * debug = fopen (ASM_DEBUG, "a+");
+
+//     fprintf (debug, "%c", a);
+
+//     my_assert (!fclose (debug));
 
 //     return 0;
 // }
 
-int LabelFromJMP (ASSEMBLER * asm_st)
+//  SubStringMaker count strings too
+void SubStringsMaker (ASSEMBLER * asm_st)                                                                                 // Splits strings into substings
 {
     my_assert (asm_st);
 
-    COLOR_PRINT (RED, "In LabelFromJMP\n");
+    char * text = asm_st->text;
 
-    if (isdigit (*asm_st->text))
+    asm_st->code = (CMD *) calloc (asm_st->n_cmd, sizeof (CMD));
+    my_assert (asm_st->code);
+
+    asm_st->labels.label_array = (LABEL_DATA *) calloc (asm_st->labels.capacity, sizeof (LABEL_DATA));
+    my_assert (asm_st->labels.label_array);
+
+    int cmd_len = 0;                                                                                       // Offset in text (not asm_st->text)
+
+//  parsing initial string
+    for (asm_st->ip = 0 ; asm_st->n_cmd > asm_st->ip; asm_st->ip++)
     {
-        asm_st->code[asm_st->ip].arg = atoi (asm_st->text);
+        cmd_len = 0;
 
-        return 0;
-    }
+        asm_st->code[asm_st->ip].cmd_start = text;
 
-    if (lbls.free_cell == lbls.array_size)
-        MemManipulation (INCREASE);
-    else if (lbls.array_size > lbls.free_cell + REALLOC_SIZE)
-        MemManipulation (DECREASE);
-    
-    for (size_t i = 0; lbls.free_cell > i; i++)
-    {
-        printf ("sizeof label = %d\tlbls.label_array[i] = ", strlen (lbls.label_array[i].name));
-        printf ("%p\n", lbls.label_array + i);
-
-        COLOR_PRINT (MANGETA, "name: %s\n", lbls.label_array[i].name);
-        if (!strncasecmp (lbls.label_array[i].name, asm_st->text, strlen (asm_st->text)))
+        while (*text != '\0')
         {
-            printf ("in strcmp\n");
-
-            if (lbls.label_array[i].ip_to_jmp != -1)
-            {
-                asm_st->code[asm_st->ip].arg = lbls.label_array[i].ip_to_jmp;
-            }
-        }
-    }
-
-    lbls.label_array[lbls.free_cell].label_ip    = asm_st->ip;
-    lbls.label_array[lbls.free_cell++].name      = asm_st->text;
-
-
-    printf ("In LabelFromJMP:\nLabel ip = %d\tlabel name: %s\n", lbls.label_array[lbls.free_cell - 1].label_ip, lbls.label_array[lbls.free_cell - 1].name);
-
-    return 0;
-}
-
-int LabelFromLabel (ASSEMBLER * asm_st)
-{
-    my_assert (asm_st);
-
-    if (lbls.free_cell == lbls.array_size)
-        MemManipulation (INCREASE);
-    else if (lbls.array_size > lbls.free_cell + REALLOC_SIZE)
-        MemManipulation (DECREASE);
-
-    bool flag = false;
-
-    for (size_t i = 0; lbls.free_cell > i; i++)
-    {
-        printf ("In LabelFromLabel:\nIn for, i = %d\n", i);
-        printf ("sizeof label = %d\tlbls.label_array[i] = ", sizeof (*lbls.label_array));
-        printf ("%s\n", lbls.label_array[i].name);
-
-        if (!strncasecmp (lbls.label_array[i].name, asm_st->text, sizeof (asm_st->text) - 2))
-        {
-            printf ("In strncasecmp, asm_st.ip = %d\tn_elems = %d\n", asm_st->ip, asm_st->n_elems);
-            
-            asm_st->code[lbls.label_array[i].label_ip].arg = asm_st->n_elems - 1;
-
-            printf ("%d - cmdcode\n", lbls.label_array[i].label_ip);
-        }
-
-        printf ("In LabelFromLabel:\n End of one cycle\n");
-                
-    }
-
-    printf ("In LabelFromLabel:\nOut of for\n");
-
-    lbls.label_array[lbls.free_cell].ip_to_jmp    = asm_st->n_elems;
-    lbls.label_array[lbls.free_cell++].name       = asm_st->text;
-
-    printf ("ip_to_jmp = %d\n", lbls.label_array[lbls.free_cell - 1].ip_to_jmp);
-
-    // мох стать похожим меньше на цветок больше на мох японский сад промок воду пьёт зеленый мох неприметным ковром стелется в тени цветов древней их пестиков шипов мы все исчезнем но не мох
-    asm_st->n_strings--;
-    asm_st->ip--;
-
-    return 0;
-}
-
-int MemManipulation (REALLOC_MODE flag)
-{
-    if (flag)
-    {
-        printf ("INCREAS\n");
-        lbls.array_size += REALLOC_SIZE;
-    }
-    else
-    {
-        printf ("DECREAS\n");
-        lbls.array_size -= REALLOC_SIZE;
-    }
-    
-    lbls.label_array = (LABEL_DATA *) realloc (lbls.label_array, lbls.array_size * sizeof (LABEL_DATA));
-    my_assert (lbls.label_array);
-
-    printf ("In MemManipulat\nlabal_array %p\n", &lbls.label_array);
-    printf ("array_size = %d\n", lbls.array_size);
-
-    return 0;
-}
-
-/*   SubStringMaker count strings too    */
-int SubStingsMaker (ASSEMBLER * asm_st)                                      // Splits strings into substings
-{
-    my_assert (asm_st);
-
-    char * text = (char *) calloc (asm_st->file_size, sizeof (char));
-    my_assert (text);
-
-    int offset = 0;
-
-    while (isspace (*text))
-        text++;
-    
-    asm_st->text[offset++] = *text;
-
-    text++;
-
-    printf ("\nSubStringMaker:\nChar - %c\t ASCII code: %d\n", asm_st->text[offset - 1], asm_st->text[offset - 1]);
-
-    while (*text != '\0')
-    {
-        while ((isspace (asm_st->text[offset - 1]) || asm_st->text[offset - 1] == '\0') && isspace (*text))
             text++;
-
-        if (*text == ';' || *text == ']')
-        {
-            asm_st->n_strings++;
-
-            COLOR_PRINT (BLUE, "\nSubStringMaker:\n");
-            COLOR_PRINT (STRANGE, "%d", asm_st->n_strings)
-            COLOR_PRINT (GREEN, "- n_strings\n");
-
-            asm_st->text[offset++] = '\0';
-            text++;
-
-            while (*text != '\r')
-                text++;
-            
-            text += 2;
-
-            continue;
+            cmd_len++;
         }
-        
-        if (*text == '\r')
-        {
-            asm_st->n_strings++;
-            
-            COLOR_PRINT (BLUE, "\nSubStringMaker:\n");
-            COLOR_PRINT (STRANGE, "%d", asm_st->n_strings)
-            COLOR_PRINT (GREEN, " - n_strings\n");
-            
-            asm_st->text[offset++] = '\0';
-            text += 2;
 
-            while (*text == '\r')
-                text += 2;
+        if (*(text - 1) == ':')
+        {
+            asm_st->labels.label_array[asm_st->labels.free_cell++].name = asm_st->code[asm_st->ip].cmd_start;
+
+            asm_st->labels.label_array[asm_st->labels.free_cell++].ip_to_jmp = asm_st->ip;
+
+            asm_st->ip--;
+
+            text++;
 
             continue;
         }
 
-        asm_st->text[offset++] = *text;                                   // Put char from text to asm_st_string
-        printf ("\nSubStringMaker:\nChar - %c\t ASCII code: %d\n", asm_st->text[offset - 1], asm_st->text[offset - 1]);
-        text++;
+        asm_st->code[asm_st->ip].cmd_len = cmd_len;
     }
-    asm_st->n_strings++;
-
-/*  after hlt going '\0'  */
-    asm_st->text[offset] = '\0';
-
-    asm_st->text = (char *) realloc (asm_st->text, offset);
-    my_assert (asm_st->text);
-
-    COLOR_PRINT (GREEN, "\nIn SubStringMaker:\n n_strings = %d\n", asm_st->n_strings);
-
-    return 0;
+    
+    return;
 }
+
+// int SubDump (char * a)
+// {
+//     FILE * debug = fopen (ASM_DEBUG, "a+");
+
+//     fprintf (debug, "%s\n", a);
+
+//     my_assert (!fclose (debug));
+
+//     return 0;
+// }
 
 int FileWriter (ASSEMBLER * asm_st)
 {
-    codeElem * final_code = (codeElem *) calloc (asm_st->n_elems, sizeof (codeElem));
-    my_assert (final_code);
+    printf ("writer\n");
 
-    codeElem * dupl_final_code = final_code;
-
-    for (int i = 0; asm_st->n_strings > i; i++)
-    {
-        COLOR_PRINT(GREEN, "\nFileWriter\ncmd_code: <%d>\n", asm_st->code[i].cmd_code);
-        
-        *final_code = asm_st->code[i].cmd_code;
-        final_code++;
-
-        if (asm_st->code[i].cmd_code & HAVE_REG)
-        {
-            *final_code = asm_st->code[i].reg;
-            final_code++;
-        }
-        if (asm_st->code[i].cmd_code & HAVE_ARG)
-        {
-            *final_code = asm_st->code[i].arg;
-            final_code++;
-        }
-    }
-
-    FILE * file_asm_st = fopen (asm_st->assembler_bin, "w+b");
+    FILE * file_asm_st = fopen ("result.txt", "w");
     my_assert(file_asm_st != NULL);
 
     /*    Creator`s data writer    */
-    fprintf (file_asm_st, "%d\n%d\n%d\n", CREATORS_NAME, VERSION, asm_st->n_elems);
+    printf ("creator\n");
 
     printf ("n_elems = %d\n", asm_st->n_elems);
 
     for (int i = 0; asm_st->n_elems > i; i++)
     {
-        printf ("%d\n", dupl_final_code[i]);
-        fprintf (file_asm_st, "%d\n", dupl_final_code[i]);
+        printf ("%d - elem\n,", asm_st->buffer[i]);
+        fprintf (file_asm_st, "%d\n", asm_st->buffer[i]);
     }
 
     my_assert (!fclose (file_asm_st));
@@ -543,112 +479,113 @@ GetArgument(..., )
     GetLabel
 */
 
-
-/**
- * @brief This func pars string with code "Push"
- * \param [in] str     String with text
- * \param [in] command Struct with datas about command
- * 
- * IMPORTANT! This func returns how many code elements is in this "Push"
- */
-
-int PushParser (char * str, CMD * command)
+int AddLabel (ASSEMBLER * asm_st)
 {
-    my_assert (command);
-    my_assert (str);
+    my_assert (asm_st);
 
-    command->cmd_code  = PUSH;
+    int n_elem = 0;
 
-    str = str + sizeof ("push");                                                // Space skipped because of '\0' is in strlen
-
-    char * ram = strchr (str, '[');
-    if (ram)
+    for (int ip = 0; asm_st->n_cmd > ip; ip++)
     {
-        command->cmd_code += HAVE_RAM;
+        n_elem++;
+        COLOR_PRINT (GREEN, "command: %s\n", asm_st->code[ip].cmd_start);
 
-        str = ram + 1;
+        if (asm_st->code[ip].cmd_code & HAVE_ARG)
+        {
+            COLOR_PRINT (YELLOW, "arg: %d\n", asm_st->code[ip].arg);
+            n_elem++;
+        }
+
+        if (asm_st->code[ip].cmd_code & HAVE_REG)
+        {
+            n_elem++;
+            COLOR_PRINT (YELLOW, "reg: %d\n", asm_st->code[ip].reg);
+        }
+
+        if (*(asm_st->code[ip].cmd_start + asm_st->code[ip].cmd_len - 1) == ':')
+        {
+            for (int i = 0; asm_st->labels.capacity > i; i++)
+            {
+                if (!strncasecmp (asm_st->code[ip].cmd_start, asm_st->labels.label_array[i].name, asm_st->code[ip].cmd_len - 2))
+                {
+                    asm_st->code[asm_st->labels.label_array[i].ip_to_jmp].arg = n_elem;
+                }
+            }
+        }
     }
-
-    if (strchr (str, '+'))
-    {
-        command->reg = *(str + 1) - 'a';
-        command->cmd_code += HAVE_REG;
-
-        str += sizeof ("rax +") - 1;                                                // Space skipped because of '\0' is in strlen
-
-        command->arg = atoi (str);
-        command->cmd_code += HAVE_ARG;
-
-        return 3;
-    }
-
-    if (*str == 'r' && *(str + 2) == 'x')
-    {
-        command->reg       = *(str + 1) - 'a';
-        command->cmd_code += HAVE_REG;
-
-        return 2;
-    }
-    else
-    {
-        command->arg       = atoi (str);
-        command->cmd_code += HAVE_ARG;
-
-        return 2;
-    }
+    printf ("end add labels\n");
+    return 0;
 }
 
-/**
- * @brief This func pars string with code "Pop"
- * \param [in] str     String with text
- * \param [in] command Struct with datas about command
- * 
- * IMPORTANT! This func returns how many code elements is in this "Pop"
- */
-
-int PopParser (char * str, CMD * command)
+int ArgsParser (ASSEMBLER * asm_st)
 {
-    my_assert (command);
-    my_assert (str);
+    my_assert (asm_st);
+
+    if (*(asm_st->code[asm_st->ip].cmd_start + asm_st->code[asm_st->ip].offset) == '[')
+    {
+        asm_st->code[asm_st->ip].cmd_code += HAVE_RAM;
+
+        asm_st->code[asm_st->ip].offset += 1;
+    }
+
+    if (GetReg (asm_st))
+        GetArg (asm_st);  
+    else if (!GetArg (asm_st))
+        GetLabel (asm_st);
+
+    return 0;
+}
+
+int GetArg (ASSEMBLER * asm_st)
+{
+    my_assert (asm_st);
+
+    if (*(asm_st->code[asm_st->ip].cmd_start + asm_st->code[asm_st->ip].offset) == '+')
+        asm_st->code[asm_st->ip].offset += 2;
+
+    // char * checker = asm_st->code[asm_st->ip].cmd_start + asm_st->code[asm_st->ip].offset;
+
+    // asm_st->code[asm_st->ip].arg = strtod (asm_st->code[asm_st->ip].cmd_start + asm_st->code[asm_st->ip].offset, &checker);
+
+    if (isdigit( *(asm_st->code[asm_st->ip].cmd_start + asm_st->code[asm_st->ip].offset)))
+    {
+        asm_st->code[asm_st->ip].arg = atoi (asm_st->code[asm_st->ip].cmd_start + asm_st->code[asm_st->ip].offset);
+
+        asm_st->code[asm_st->ip].cmd_code += HAVE_ARG;
+
+        return HAVE_ARG;
+    }
     
+    return 0;
+}
 
-    command->cmd_code  = POP;
+int GetReg (ASSEMBLER * asm_st)
+{
+    my_assert (asm_st);
 
-    str += sizeof ("pop");
-
-    char * ram = strchr (str, '[');
-    if (ram)
+    if ('r' ==  (*(asm_st->code[asm_st->ip].cmd_start + asm_st->code[asm_st->ip].offset)) && 
+        (*(asm_st->code[asm_st->ip].cmd_start + asm_st->code[asm_st->ip].offset + 2)) == 'x')
     {
-        command->cmd_code += HAVE_RAM;
+        asm_st->code[asm_st->ip].cmd_code += HAVE_REG;
 
-        str = ram + 1;
+        asm_st->code[asm_st->ip].reg       = *(asm_st->code[asm_st->ip].cmd_start + asm_st->code[asm_st->ip].offset + 1) - 'a';
+
+        asm_st->code[asm_st->ip].offset   += sizeof ("rax");
+
+        return HAVE_REG;
     }
 
-    if (strchr (str, '+'))
-    {
-        command->reg = *(str + 1) - 'a';
-        command->cmd_code += HAVE_REG;
+    return 0;
+}
 
-        str += sizeof ("rax +") - 1;                                                // Space skipped because of '\0' is in strlen
+int GetLabel (ASSEMBLER * asm_st)
+{
+    my_assert (asm_st);
 
-        command->arg = atoi (str);
-        command->cmd_code += HAVE_ARG;
+    asm_st->labels.label_array[asm_st->labels.free_cell].ip_to_jmp = asm_st->ip;
+    asm_st->labels.label_array[asm_st->labels.free_cell++].name = asm_st->code[asm_st->ip].cmd_start;
 
-        return 3;
-    }
-    
-    if (*str == 'r' && *(str + 2) == 'x')
-    {
-        command->reg       = *(str + 1) - 'a';
-        command->cmd_code += HAVE_REG;
-
-        return 2;
-    }
-    else
-    {
-        COLOR_PRINT (RED, "ERROR, you entered wrong data in pop\n");
-        exit (-1);
-    }
+    return 0;
 }
 
 int AssemblerDump (ASSEMBLER * asm_st)
