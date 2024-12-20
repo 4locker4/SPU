@@ -12,7 +12,7 @@ flags = -c -Wshadow -Winit-self -Wredundant-decls -Wcast-align -Wundef -Wfloat-e
 includes = ./inc/Spu.h ./Includes/Aggregate.h ./inc/FuncDeclar.h ../Stack/inc/Utils.h           \
 		   ../Stack/inc/Errors.h ../Stack/inc/Stack.h C:/Users/eremc/.vscode/Tests/TX/TXLib.h   \
 
-sources = ./src/main.cpp ../Stack/src/Utils.cpp ../Stack/src/Stack.cpp
+sources = ./src/cpu.cpp ../Stack/src/Utils.cpp ../Stack/src/Stack.cpp
 
 objects = $(sources:.cpp=.o)
 
