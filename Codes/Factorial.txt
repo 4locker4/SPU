@@ -1,0 +1,30 @@
+inp
+pop rax                         ; max num
+push 1
+call factorial
+outp
+hlt
+
+factorial:
+    push rax
+
+    push rax
+    push 1
+    sub
+
+    pop rax
+    push rax
+
+    push 0
+    je end
+
+    push rax
+    outp
+
+    call factorial
+
+    end:
+
+    mul
+
+    ret

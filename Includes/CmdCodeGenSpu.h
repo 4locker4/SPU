@@ -1,0 +1,4 @@
+OP_CODE_(ADD, +)
+OP_CODE_(SUB, -)
+OP_CODE_(MUL, *)
+OP_CODE_(DIV, /)

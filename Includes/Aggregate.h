@@ -7,7 +7,7 @@
 #include <strings.h>
 #include "C:\Users\eremc\.vscode\Tests\TX\TXLib.h"
 
-#include "../Assembler/inc/Utils.h"
+#include "../Stack/inc/Utils.h"
 #include "../Stack/inc/Stack.h"
 
 //------------------------------------- TYPEDEF ------------------------------------
@@ -15,11 +15,11 @@
 typedef int codeElem;
 
 //-------------------------------------  CONST  ------------------------------------
-const char *   ASSEMBLER_FILE   = "../Codes/Assembler.txt";
+const char *   ASSEMBLER_FILE   = "../Codes/AssemblerBin.bin";
 
 const char *   ASSEMBLER_BIN_F  = "../Codes/AssemblerBin.bin";
 
-const int      QUANTITY_OF_REG  = 4;
+const int      QUANTITY_OF_REG  = 5;
 
 const int      LEN_OF_REGISTER  = 3;
 
@@ -35,6 +35,7 @@ const codeElem CREATORS_NAME    = 0xE1DA;
 
 enum PROGRAMMS
 {
+    NOT_INITED = -1,
     HLT = 0,
 
     PUSH,
@@ -59,6 +60,7 @@ enum PROGRAMMS
     JB,
     JBE,
     JE,
+    JNE,
 
     CALL,
     RET,
@@ -78,7 +80,8 @@ enum REGISTERS
     rax,
     rbx,
     rcx,
-    rdx
+    rdx,
+    rex,
 };
 
 #endif

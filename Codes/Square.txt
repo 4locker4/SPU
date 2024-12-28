@@ -1,120 +1,45 @@
-    inp                                                 ; a * x ^ 2
-    pop     rax
-    inp                                                 ; b * x
-    pop     rbx
-    inp                                                 ; c
-    pop     rcx
+call main
+hlt
+main:
+inp
+pop [1]
+inp
+pop [2]
+inp
+pop [3]
+push [3]
+outp
+call dispatcher
+push [rbx + 1]
+push [rbx + 2]
+push [rbx + 3]
+ret
+push 0
+dispatcher:
+push [rbx + 1]
+push [rbx + 2]
+push [rbx + 3]
+push [rbx + 1]
+push 0
+add
+push 0
+je end_if_0
+call linear solver
+push [rbx + 2]
+push [rbx + 3]
 
-    push    rax
-    push    0
-    je      check_b_zero
-    jmp     a_not_zero
+end_if_0:
 
-    check_b_zero:
-        push    rbx
-        push    0
-        je      i_n_check_c_zero
-        CALL linear
-        hlt
-    
-    i_n_check_c_zero:
-        push    rcx
-        push    0
-        je      inf_roots
-        jmp     no_roots
-    
-    a_not_zero:
-        push    rbx
-        push    0
-        je      b_zero
+ret
+linear solver:
+push [rbx + 8]
+push [rbx + 9]
+push [rbx + 9]
+push -1
+mul
+push [rbx + 8]
+div
+outp
 
-        push    rcx
-        push    0
-        je      c_zero
+ret
 
-        jmp     full
-
-        b_zero:
-            push    rax
-            push    rcx
-            mul
-            push    0
-            jb      no_roots
-            push    rax
-            pop     rbx
-            CALL    linear
-            hlt
-
-        c_zero:
-            push    rbx
-            pop     rcx
-            push    rax
-            pop     rbx
-            CALL    linear
-            push    0
-            outp
-            hlt
-        
-        full_square:
-            push    rbx
-            CALL    doscrimenant
-            pop     rdx
-            push    rdx
-            sub
-
-            push    rax
-            div
-
-            push    2
-            div
-
-            outp
-
-            push    rbx
-            push    rdx
-            div
-
-            push    rax
-            div
-
-            push    2
-            div
-
-            outp
-
-            hlt
-
-
-
-linear:
-    push    rbx
-    push    rcx
-    div
-    outp
-    ret
-
-doscrimenant:
-    push    rbx
-    push    rbx
-    mul
-    push    4
-    push    rax
-    mul
-    push    rcx
-    mul
-    sqrt
-    ret
-
-inf_roots:
-    push    -666
-    outp
-    hlt
-
-no_roots:
-    push    -1
-    push    -1
-    push    -1
-    outp
-    outp
-    outp
-    hlt

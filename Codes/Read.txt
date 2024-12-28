@@ -1,19 +1,14 @@
-inp
-pop rax                         ;
-push 1
-pop rbx
-push rbx
+call first
+hlt
 
-factorial:
-    push rbx + 1
-    pop rbx
-    push rbx
-    mul
-    push rax
-    push rbx + 1
-    ja end
-    jmp factorial
-
-end:
+first:
+    push 1
     outp
-    hlt
+    push 10
+    pop [10]
+    push 100
+    push [10]
+    outp
+    outp
+
+    ret

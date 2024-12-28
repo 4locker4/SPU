@@ -43,8 +43,19 @@ int SPUCtor (SPU * processor)
     return 0;
 }
 
+int MakeRegisters (SPU * processor)
+{
+    my_assert (processor);
+
+    processor->reg = (codeElem *) calloc (QUANTITY_OF_REG, sizeof (codeElem));
+
+    return 0;
+}
+
 int CodeReader (SPU * processor)
 {
+    my_assert (processor);
+
     char * pointer_to_text = FileToStr (processor->assembler_file, &processor->file_size);      // Take string with all file`s data 
 
     processor->code = (codeElem *) calloc (processor->n_elems, sizeof (codeElem));              // Allocate memory for array of structs with code datas
@@ -84,6 +95,38 @@ int CodeReader (SPU * processor)
     return 0;
 }
 
+#define JMP_CODE_(jmp_name, op)                                                                     \
+                            case (jmp_name):                                                        \
+                            {                                                                       \
+                                RunDump (processor);                                                \
+                                                                                                    \
+                                stackElem a = StackPop (&stk);                                      \
+                                stackElem b = StackPop (&stk);                                      \
+                                                                                                    \
+                                if (a op b)                                                         \
+                                    processor->ip = processor->code[++processor->ip] - 1;           \
+                                else                                                                \
+                                    processor->ip++;                                                \
+                                                                                                    \
+                                break;                                                              \
+                            }
+
+#define OP_CODE_(pr_code, op)                                                                       \
+                            case (pr_code):                                                         \
+                            {                                                                       \
+                                RunDump (processor);                                                \
+                                                                                                    \
+                                stackElem a = StackPop (&stk);                                      \
+                                stackElem b = StackPop (&stk);                                      \
+                                                                                                    \
+                                stackElem res = b op a;                                             \
+                                                                                                    \
+                                StackPush (&stk, res);                                              \
+                                StackDump (&stk, 0, #pr_code, __FILE__, __LINE__);                  \
+                                                                                                    \
+                                break;                                                              \
+                            }
+
 int Run (SPU * processor)
 {
     Stack_t stk = {};                                                                       // Init stack of args
@@ -119,76 +162,9 @@ int Run (SPU * processor)
 
                 break;
             }
-            case (JA):
-            {
-                RunDump (processor);
 
-                stackElem a = StackPop (&stk);
-                stackElem b = StackPop (&stk);
+            #include "../../Includes/JmpCodeGenSpu.h"
 
-                if (a > b)
-                    processor->ip = processor->code[++processor->ip] - 1;
-                else
-                    processor->ip++;
-                
-                break;                
-            }
-            case (JB):
-            {
-                RunDump (processor);
-
-                stackElem a = StackPop (&stk);
-                stackElem b = StackPop (&stk);
-
-                if (a < b)
-                    processor->ip = processor->code[++processor->ip] - 1;
-                else
-                    processor->ip++;
-
-                break;                
-            }
-            case (JBE):
-            {
-                RunDump (processor);
-
-                stackElem a = StackPop (&stk);
-                stackElem b = StackPop (&stk);
-
-                if (a <= b)
-                    processor->ip = processor->code[++processor->ip] - 1;
-                else
-                    processor->ip++;
-
-                break;
-            }
-            case (JAE):
-            {
-                RunDump (processor);
-
-                stackElem a = StackPop (&stk);
-                stackElem b = StackPop (&stk);
-
-                if (a >= b)
-                    processor->ip = processor->code[++processor->ip] - 1;
-                else
-                    processor->ip++;
-
-                break;
-            }
-            case (JE):
-            {
-                RunDump (processor);
-
-                stackElem a = StackPop (&stk);
-                stackElem b = StackPop (&stk);
-
-                if (a == b)
-                    processor->ip = processor->code[++processor->ip] - 1;
-                else
-                    processor->ip++;
-
-                break;
-            }
             case (JMP):
             {
                 RunDump (processor);
@@ -219,63 +195,14 @@ int Run (SPU * processor)
 
                 break;
             }
-            case (ADD):
-            {
-                RunDump (processor);
 
-                stackElem a = StackPop (&stk);
-                stackElem b = StackPop (&stk);
+            #include "../../Includes/CmdCodeGenSpu.h"
 
-                StackPush (&stk, a + b);
-                StackDump (&stk, 0, "ADD", __FILE__, __LINE__);
-
-                break;
-            }
-            case (SUB):
-            {
-                RunDump (processor);
-
-                stackElem a = StackPop (&stk);
-                stackElem b = StackPop (&stk);
-
-                StackPush (&stk, b - a);
-                StackDump (&stk, 0, "SUB", __FILE__, __LINE__);
-
-                break;
-            }
-            case (MUL):
-            {
-                RunDump (processor);
-
-                stackElem a = StackPop (&stk);
-                stackElem b = StackPop (&stk);
-
-                StackPush (&stk, a * b);
-                StackDump (&stk, 0, "MUL", __FILE__, __LINE__);
-
-                break;
-            }
-            case (DIV):
-            {
-                RunDump (processor);
-
-                stackElem a = StackPop (&stk);
-                stackElem b = StackPop (&stk);
-
-                StackPush (&stk, b / a);
-                StackDump (&stk, 0, "DIV", __FILE__, __LINE__);
-
-
-                break;
-            }
             case (OUTP):
             {
                 RunDump (processor);
 
                 codeElem myu = StackPop (&stk);
-
-                for (int i = 0; myu > i; i++)
-                    printf ("MIAU\n");
 
                 COLOR_PRINT (BLUE, "Output val: <%d>\n", myu);
 
@@ -355,63 +282,52 @@ int GetArgPush (SPU * processor)
 {
     my_assert (processor);
 
-    size_t   offset    = 0;
     codeElem arg_type  = processor->code[processor->ip++];
 
     codeElem arg_value = 0;
 
-    if (arg_type & HAVE_REG)
-    {    
-        arg_value += processor->reg[processor->code[processor->ip]];
-        offset++;
-    }
+    if ((arg_type & HAVE_REG) && (arg_type & HAVE_ARG))
+    {
+        arg_value += processor->reg[processor->code[processor->ip++]];
 
-    if (arg_type & HAVE_ARG)
-        arg_value += processor->code[processor->ip + offset];
-    else
-        offset--;
+        arg_value += processor->code[processor->ip];
+    }
+    else if (arg_type & HAVE_ARG)
+        arg_value += processor->code[processor->ip];
+    else if (arg_type & HAVE_REG)
+        arg_value += *(processor->ram + processor->code[processor->ip]);
 
     if (arg_type & HAVE_RAM)
         arg_value = processor->ram[arg_value];
-
-    processor->ip += offset;
-
+    
     return arg_value;
 }
 
 codeElem * GetArgPop (SPU * processor)
 {
     my_assert(processor);
-    
-    codeElem   arg_type  = processor->code[processor->ip++];
-    codeElem * arg_value = NULL;
+
+    int helper           = 0;
+    codeElem   arg_type  = processor->code[processor->ip];
+    codeElem * arg_value = &helper;
 
     int offset = 0;
 
-    if (arg_type & HAVE_REG && arg_type & HAVE_ARG)
+    if ((arg_type & HAVE_REG) && (arg_type & HAVE_ARG))
     {
-        arg_value = processor->reg + processor->code[processor->ip++];
+        *arg_value = *(processor->reg + processor->code[++processor->ip]);
 
-        *arg_value += processor->code[processor->ip];
+        *arg_value += processor->code[++processor->ip];
     }
     else if (arg_type & HAVE_REG)
-        arg_value = processor->reg + processor->code[processor->ip];
+        arg_value = processor->reg + processor->code[++processor->ip];
     else if (arg_type & HAVE_ARG)
-        *arg_value = processor->code[processor->ip];
+        *arg_value = processor->code[++processor->ip];
 
     if (arg_type & HAVE_RAM)
         arg_value = &(processor->ram[*arg_value]);
     
     return arg_value;
-}
-
-int MakeRegisters (SPU * processor)
-{
-    my_assert (processor);
-
-    processor->reg = (codeElem *) calloc (QUANTITY_OF_REG, sizeof (codeElem));
-
-    return 0;
 }
 
 #define Dump_to_file(...) fprintf(dump_file, __VA_ARGS__);

@@ -2,22 +2,23 @@
 #define ASSEMBLER_H
 
 #include "../../Includes/Aggregate.h"
-#include "Utils.h"
+#include "../../Stack/inc/Utils.h"
 
 //-------------------------------------  CONST  ------------------------------------
 
 const int      REALLOC_SIZE      = 8;
 
 //------------------------------------- STRUCT ------------------------------------
+
 typedef struct
 {
-    char *   cmd_start  = NULL;
+    char *    cmd_start  = NULL;
 
-    size_t   offset     =  0;
-    int      cmd_code   = -1;
-    size_t   cmd_len    =  0;
-    codeElem arg        =  0;
-    codeElem reg        =  0;
+    size_t    offset     =  0;
+    codeElem  cmd_code   =  NOT_INITED;
+    size_t    cmd_len    =  0;
+    codeElem  arg        =  0;
+    codeElem  reg        =  0;
 } CMD;
 
 typedef struct
@@ -30,7 +31,7 @@ typedef struct
 typedef struct
 {
     size_t free_cell         = 0;
-    size_t capacity          = 0;             // TODO rename capacity
+    size_t capacity          = 0;
 
     LABEL_DATA * label_array = NULL;
 } LABEL_STRUCT;
@@ -41,7 +42,7 @@ typedef struct
     codeElem version      = VERSION;
 
     const char * read_file      = "../Codes/Read.txt";
-    const char * assembler_file = "../Codes/RES.txt";
+    const char * assembler_file = ASSEMBLER_FILE;
     const char * assembler_bin  = ASSEMBLER_BIN_F;
 
     CMD  * code = NULL;
@@ -56,26 +57,20 @@ typedef struct
     size_t ip        = 0;
 } ASSEMBLER;
 
+int    InputFromFile            (ASSEMBLER * stk);
+int    CodeConverter            (ASSEMBLER * stk);
+void   SubStringsMaker          (ASSEMBLER * stk);
+char * DelSeveralSpacesAndComms (ASSEMBLER * asm_st, char * text, size_t text_size);
 
-int InputFromFile       (ASSEMBLER * stk);
-int CodeConverter       (ASSEMBLER * stk);
-void SubStringsMaker      (ASSEMBLER * stk);                                     // Splits strings into substings
-char * DelSeveralSpacesAndComms (char * text, size_t text_size);
+int    FileWriter               (ASSEMBLER * stk);
+int    AssemblerDump            (ASSEMBLER * stk);
 
-int FileWriter          (ASSEMBLER * stk);
-int AssemblerDump       (ASSEMBLER * stk);
-
-int GetLabel            (ASSEMBLER * asm_st);
-int GetReg              (ASSEMBLER * asm_st);
-int GetArg              (ASSEMBLER * asm_st);
-int AddLabel            (ASSEMBLER * asm_st);
-void ReadElemNum         (ASSEMBLER * asm_st);
-int BufferWriter        (ASSEMBLER * asm_st, int * buf_ip);
-int ArgsParser          (ASSEMBLER * asm_st);
-int AsmCtor             (ASSEMBLER * asm_st);
-
-
-
-
-
+int    GetLabel                 (ASSEMBLER * asm_st);
+int    GetReg                   (ASSEMBLER * asm_st);
+int    GetArg                   (ASSEMBLER * asm_st);
+void   ReadElemNum              (ASSEMBLER * asm_st);
+int    BufferWriter             (ASSEMBLER * asm_st, int * buf_ip);
+int    ArgsParser               (ASSEMBLER * asm_st);
+int    AsmCtor                  (ASSEMBLER * asm_st);
+ 
 #endif //ASSEMBLER_H

@@ -1,0 +1,6 @@
+JMP_CODE_(JNE, !=)
+JMP_CODE_(JA, >)
+JMP_CODE_(JB, <)
+JMP_CODE_(JE, ==)
+JMP_CODE_(JBE, <=)
+JMP_CODE_(JAE, >=)
