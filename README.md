@@ -1,4 +1,4 @@
-#SPU
+# SPU
 
 Hello! I present You my project called SPU. This is virtual realisation of CPU. It reads and execute assmebler code. 
 
