@@ -1,7 +1,0 @@
-{
-    "files.associations": {
-        "cmath": "cpp",
-        "system_error": "cpp",
-        "random": "cpp"
-    }
-}
